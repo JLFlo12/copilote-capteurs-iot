@@ -1,0 +1,15 @@
+# Secrets
+.env
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Generated data (regenerate with the simulator, fixed seed)
+logs/*.csv
+logs/*.jsonl
+rag/chunks.jsonl
+rag/embeddings.json
+reports/*
+!reports/.gitkeep
