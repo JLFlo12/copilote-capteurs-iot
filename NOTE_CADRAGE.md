@@ -96,6 +96,8 @@ Le score vient du code (règles + Isolation Forest + statistique). Le LLM ne fai
 | Hallucination de source | Le LLM cite un runbook qui n'existe pas | Le code vérifie que chaque source citée existe dans la base |
 | Dérive sous le seuil | Décalage trop lent pour la pente sur 72 h | CUSUM cumulé sur 14 jours, en plus de la pente |
 | Noyade de l'opérateur | Rafale d'alertes après une coupure | Regrouper les alertes par passerelle et par fenêtre de temps |
+| Batterie simulée | Des `battery_mv` très bas envoyés exprès pour déclencher des tickets d'inspection en masse | Regrouper les alertes, plafonner le nombre de tickets par jour |
+| Fausse coupure | Passerelle coupée exprès pour faire passer des trames injectées pour un rejeu de tampon | Chaque trame de la rafale doit avoir un `seq` jamais vu et la bonne empreinte |
 
 ## 7. Rôles
 
