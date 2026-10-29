@@ -37,18 +37,25 @@ Trames simulées → variables → détection (règles + Isolation Forest) → t
 
 ```text
 copilote-capteurs-iot/
+├── docs/         # guides du projet (technique, séances)
 ├── simulateur/   # simulateur du parc (graine fixée)
-├── logs/         # trames générées (non commitées)
+├── logs/         # trames générées (non commitées) et journal des décisions
 ├── docs_rt/      # documents du RAG : fiche terrain, runbooks, actions autorisées
 ├── datasets/     # JSONL instruction/réponse
 ├── rag/          # chunks et embeddings (générés)
-├── models/       # Modelfile Ollama
+├── models/       # Modelfile Ollama, modèle Isolation Forest entraîné
 ├── scripts/      # détection, chaîne, validation
 ├── evaluation/   # cas de test (JSONL) et grille de notation
 ├── reports/      # rapports d'incident et résultats des tests (générés)
 ├── NOTE_CADRAGE.md
 └── JOURNAL_DECISIONS.md
 ```
+
+## Documentation
+
+- [Guide technique en bref](docs/guide-technique.md) : les 8 étapes à coder, outils et fichiers.
+- [Guide de la séance 1](docs/guide-seance-1-cadrage.md) : cadrage J1, déroulé minute par minute.
+- [Note de cadrage](NOTE_CADRAGE.md) et [journal de décisions](JOURNAL_DECISIONS.md).
 
 ## Démarrage
 
