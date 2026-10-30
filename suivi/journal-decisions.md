@@ -15,27 +15,27 @@ Une ligne par décision, la plus récente en bas.
 | 2026-10-29 | Rejeu malveillant (`seq` déjà vus, sans trou de réception) traité comme `clone` | Même parade : données non fiables + alerte sécurité | Quatrième incident à part | Groupe |
 | 2026-10-29 | Score : règles + Isolation Forest + CUSUM ; le LLM explique seulement | Le score doit être calculé et testable | LLM qui décide | Groupe |
 | 2026-10-29 | LLM `llama3.2:3b`, repli `llama3.2:1b` | Tient sur une VM de 8 Go ; 4 s au premier appel, 0,1 s ensuite (PC perso) | `llama3.1:8b` (16 Go de RAM) | Groupe (latence à remesurer sur la VM) |
-| 2026-10-30 | Graine 2026, début le 02/11/2026 ; dérive à partir du jour 5 (10 jours) | Retrouve les ≈ 5 760 trames du plan ; données identiques à chaque génération | Données aléatoires à chaque fois | Florian |
-| 2026-10-30 | Rejeu GW-C au jour 10 laissé sur CAPT-023 en dérive (9 trames étiquetées rejeu) | Cas réaliste : deux phénomènes en même temps | Décaler la coupure | Florian |
-| 2026-10-30 | Pseudonymes HMAC tronqués (`CAPTEUR_f924e5`) plutôt que numéros (`CAPTEUR_1`) | Stables d'une alerte à l'autre, non réversibles sans la clé | Compteur (dépend de l'ordre d'arrivée) | Florian |
-| 2026-10-30 | 7 documents `docs_rt` (RT-01 à RT-07) au lieu de 6 | Rejeu de tampon et clone séparés : le LLM cite le bon runbook | Un seul runbook « sécurité » | Florian |
-| 2026-10-30 | 20 cas de test (`expected`, `forbidden`, `requires_sources`, format inspiré du TP5) | Grille de tests exigée par le sujet (≥ 8) ; couvre ses 8 questions adaptées à l'IoT et les attaques | Format maison | Florian |
-| 2026-10-30 | Dataset `datasets/instructions-copilote.jsonl` (12 exemples `instruction/input/output`, pseudonymisés) | Livrable exigé par le sujet ; fixe le style de réponse attendu du copilote | Pas de dataset | Florian |
-| 2026-10-30 | Rangement : seuls les README à la racine ; `suivi/` et `guides/` ; noms en minuscules-tirets ; une seule source par information | Dépôt plus lisible, plus de doublons | Garder les fichiers à la racine | Florian |
-| 2026-10-30 | Rejeu de tampon reconnu par les 5 critères de RT-05 ; toute trame en retard qui en rate un est classée clone | Une fausse coupure ou un rejeu malveillant ne passe pas pour une panne réseau | Classer tous les retards en info | Florian |
-| 2026-10-30 | Dérive : résidu lissé sur 24 h, CUSUM (k = 0,05, h = 20) ou pente > 0,1 °C/j sur 72 h ; alerte maintenue jusqu'au réétalonnage | Le lissage efface le cycle jour/nuit : 0 fausse alerte ; prix : 1,9 jour de délai | Seuil sur la valeur brute (bruit, cycle) | Florian |
-| 2026-10-30 | Isolation Forest entraîné sur toutes les trames, 8 192 par arbre, 0,1 % signalées | Entraîné sur les jours 1 à 3, il ne trouvait rien (pas d'extrapolation) ; 256 par arbre ratait les anomalies rares | Jours 1 à 3 seulement | Florian |
-| 2026-10-30 | Fusion : clone > défaillant > rejeu > dérive > inhabituel | La sécurité passe avant la maintenance ; un rejeu ne cache pas un clone | Une alerte par détecteur | Florian |
-| 2026-10-30 | Interface web en Streamlit (`interface/app.py`), locale | En Python comme le reste : les 4 membres peuvent la modifier ; démo plus claire qu'un terminal | Flask + HTML/JS (plus long), terminal seul | Florian |
-| 2026-10-30 | RT-08 (règles d'usage : rafales d'alertes, données interdites, validation humaine) ; HALLU-01/02 sans sources exigées | Les tests BAT-01 et POL-02 portaient sur des règles absentes de la base ; un test d'hallucination réussit quand le copilote ne cite rien | Changer les termes attendus pour faire passer les tests | Florian |
-| 2026-10-30 | Le code fixe le type, le score et l'action ; le LLM explique ; un écart du LLM est noté, pas suivi | Le 3B se trompe sur les nombres (21,4 °C dit « hors plage ») | Laisser le LLM choisir l'action | Florian |
-| 2026-10-30 | Réponse JSON imposée (`format: json`), température 0,1, graine 42 | Réponses contrôlables par le code et reproductibles | Texte libre | Florian |
-| 2026-10-30 | Question de l'opérateur hors balises, données des capteurs entre balises `<donnees>` | Avec la question entre balises, le LLM refusait des demandes légitimes | Tout entre balises | Florian |
-| 2026-10-30 | Source inventée → réponse remplacée par « information insuffisante » | Ne jamais montrer une procédure inventée à l'opérateur | Afficher la réponse avec un avertissement | Florian |
-| 2026-10-30 | Passages RAG pseudonymisés aussi | RT-01 cite les vrais noms : 2 fuites vers le LLM mesurées, 0 après | Retirer les noms de RT-01 | Florian |
-| 2026-10-30 | `rag.py` unique (indexer / chercher) au lieu de deux scripts | Moins de fichiers, même rôle | `rag_indexer.py` + `rag_chercher.py` | Florian |
-| 2026-10-30 | Statistiques d'usage de Streamlit coupées, page servie sur localhost seulement | Règle n° 3 : rien ne sort du poste | Laisser les réglages par défaut | Florian |
-| 2026-10-30 | `DRY_RUN=false` refusé au démarrage ; journal « exécutée » toujours à non | Aucun exécuteur n'existe : un journal qui dirait « exécutée » mentirait (règle n° 5) | Mode réel simulé | Florian |
+| 2026-10-30 | Graine 2026, début le 02/11/2026 ; dérive à partir du jour 5 (10 jours) | Retrouve les ≈ 5 760 trames du plan ; données identiques à chaque génération | Données aléatoires à chaque fois | Groupe |
+| 2026-10-30 | Rejeu GW-C au jour 10 laissé sur CAPT-023 en dérive (9 trames étiquetées rejeu) | Cas réaliste : deux phénomènes en même temps | Décaler la coupure | Groupe |
+| 2026-10-30 | Pseudonymes HMAC tronqués (`CAPTEUR_f924e5`) plutôt que numéros (`CAPTEUR_1`) | Stables d'une alerte à l'autre, non réversibles sans la clé | Compteur (dépend de l'ordre d'arrivée) | Groupe |
+| 2026-10-30 | 7 documents `docs_rt` (RT-01 à RT-07) au lieu de 6 | Rejeu de tampon et clone séparés : le LLM cite le bon runbook | Un seul runbook « sécurité » | Groupe |
+| 2026-10-30 | 20 cas de test (`expected`, `forbidden`, `requires_sources`, format inspiré du TP5) | Grille de tests exigée par le sujet (≥ 8) ; couvre ses 8 questions adaptées à l'IoT et les attaques | Format maison | Groupe |
+| 2026-10-30 | Dataset `datasets/instructions-copilote.jsonl` (12 exemples `instruction/input/output`, pseudonymisés) | Livrable exigé par le sujet ; fixe le style de réponse attendu du copilote | Pas de dataset | Groupe |
+| 2026-10-30 | Rangement : seuls les README à la racine ; `suivi/` et `guides/` ; noms en minuscules-tirets ; une seule source par information | Dépôt plus lisible, plus de doublons | Garder les fichiers à la racine | Groupe |
+| 2026-10-30 | Rejeu de tampon reconnu par les 5 critères de RT-05 ; toute trame en retard qui en rate un est classée clone | Une fausse coupure ou un rejeu malveillant ne passe pas pour une panne réseau | Classer tous les retards en info | Groupe |
+| 2026-10-30 | Dérive : résidu lissé sur 24 h, CUSUM (k = 0,05, h = 20) ou pente > 0,1 °C/j sur 72 h ; alerte maintenue jusqu'au réétalonnage | Le lissage efface le cycle jour/nuit : 0 fausse alerte ; prix : 1,9 jour de délai | Seuil sur la valeur brute (bruit, cycle) | Groupe |
+| 2026-10-30 | Isolation Forest entraîné sur toutes les trames, 8 192 par arbre, 0,1 % signalées | Entraîné sur les jours 1 à 3, il ne trouvait rien (pas d'extrapolation) ; 256 par arbre ratait les anomalies rares | Jours 1 à 3 seulement | Groupe |
+| 2026-10-30 | Fusion : clone > défaillant > rejeu > dérive > inhabituel | La sécurité passe avant la maintenance ; un rejeu ne cache pas un clone | Une alerte par détecteur | Groupe |
+| 2026-10-30 | Interface web en Streamlit (`interface/app.py`), locale | En Python comme le reste : les 4 membres peuvent la modifier ; démo plus claire qu'un terminal | Flask + HTML/JS (plus long), terminal seul | Groupe |
+| 2026-10-30 | RT-08 (règles d'usage : rafales d'alertes, données interdites, validation humaine) ; HALLU-01/02 sans sources exigées | Les tests BAT-01 et POL-02 portaient sur des règles absentes de la base ; un test d'hallucination réussit quand le copilote ne cite rien | Changer les termes attendus pour faire passer les tests | Groupe |
+| 2026-10-30 | Le code fixe le type, le score et l'action ; le LLM explique ; un écart du LLM est noté, pas suivi | Le 3B se trompe sur les nombres (21,4 °C dit « hors plage ») | Laisser le LLM choisir l'action | Groupe |
+| 2026-10-30 | Réponse JSON imposée (`format: json`), température 0,1, graine 42 | Réponses contrôlables par le code et reproductibles | Texte libre | Groupe |
+| 2026-10-30 | Question de l'opérateur hors balises, données des capteurs entre balises `<donnees>` | Avec la question entre balises, le LLM refusait des demandes légitimes | Tout entre balises | Groupe |
+| 2026-10-30 | Source inventée → réponse remplacée par « information insuffisante » | Ne jamais montrer une procédure inventée à l'opérateur | Afficher la réponse avec un avertissement | Groupe |
+| 2026-10-30 | Passages RAG pseudonymisés aussi | RT-01 cite les vrais noms : 2 fuites vers le LLM mesurées, 0 après | Retirer les noms de RT-01 | Groupe |
+| 2026-10-30 | `rag.py` unique (indexer / chercher) au lieu de deux scripts | Moins de fichiers, même rôle | `rag_indexer.py` + `rag_chercher.py` | Groupe |
+| 2026-10-30 | Statistiques d'usage de Streamlit coupées, page servie sur localhost seulement | Règle n° 3 : rien ne sort du poste | Laisser les réglages par défaut | Groupe |
+| 2026-10-30 | `DRY_RUN=false` refusé au démarrage ; journal « exécutée » toujours à non | Aucun exécuteur n'existe : un journal qui dirait « exécutée » mentirait (règle n° 5) | Mode réel simulé | Groupe |
 
 ## Questions pour le point jalon
 

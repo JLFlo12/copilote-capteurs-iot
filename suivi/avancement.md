@@ -29,7 +29,7 @@ Membres et rôles : [note de cadrage](note-cadrage.md), section 7.
 | Rapport d'incident court | `scripts/copilote.py` → `reports/incidents/` | Fait |
 | Rapport technique, démo | `reports/` | Final |
 
-## J2 — ce qui est fait (30/10, Florian)
+## J2 — ce qui est fait (30/10)
 
 - **Simulateur** : `generer_parc.py` (parc normal) puis `injecter_incidents.py` (incidents). 160 824 trames, 3,9 % anormales : dérive 5 751, clone 288, rejeu de tampon 150, défaillant 90.
 - **Pseudonymisation** : HMAC avec `PSEUDO_KEY` (`.env`, non commité). `CAPT-012` → `CAPTEUR_xxxxxx`.
@@ -41,7 +41,7 @@ Membres et rôles : [note de cadrage](note-cadrage.md), section 7.
 
 Voir la section « Démarrage » du [README](../README.fr.md).
 
-## J3 — ce qui est fait (30/10, Florian)
+## J3 — ce qui est fait (30/10)
 
 Résultats complets : [reports/mesures-j3.md](../reports/mesures-j3.md).
 
@@ -56,9 +56,9 @@ Résultats complets : [reports/mesures-j3.md](../reports/mesures-j3.md).
 - Attaques déjouées : fausse coupure (5/5 classées clone), rejeu malveillant (12/12).
 - Limite à dire dans le rapport : la dérive n'est vue qu'après environ 2 jours, le temps que l'écart dépasse le bruit.
 
-## J4 — ce qui est fait (30/10, Florian)
+## J4 — ce qui est fait (30/10)
 
-Résultats : [reports/tests-j4.md](../reports/tests-j4.md). LLM `llama3.2:3b` sur le PC de Florian, environ 5 s par réponse.
+Résultats : [reports/tests-j4.md](../reports/tests-j4.md). LLM `llama3.2:3b` sur un PC personnel, environ 5 s par réponse.
 
 - **RAG** : 8 documents découpés en 20 passages ; le bon runbook est retrouvé en tête dans 4 requêtes de test sur 5.
 - **Contrôles par le code** : source inventée → réponse bloquée ; action hors liste blanche → ignorée et notée dans le journal ; données des capteurs entre balises ; passages et questions pseudonymisés (0 identifiant réel envoyé au LLM).
