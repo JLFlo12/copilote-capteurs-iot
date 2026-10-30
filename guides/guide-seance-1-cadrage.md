@@ -54,7 +54,7 @@ On ne code pas encore la détection. Cette séance sert à décider quoi constru
 mkdir -p copilote-iot && cd copilote-iot
 git init
 mkdir -p docs_rt logs datasets simulateur rag models evaluation reports scripts
-touch README.md JOURNAL_DECISIONS.md NOTE_CADRAGE.md .env.example
+touch README.md suivi/journal-decisions.md suivi/note-cadrage.md .env.example
 printf ".env\n.venv/\n__pycache__/\nlogs/*.csv\nrag/embeddings.json\n" > .gitignore
 git add . && git commit -m "Initialisation du projet copilote IoT"
 ```
@@ -191,60 +191,11 @@ Notez les réponses dans le journal de décisions.
 
 ## 1:55 — Plan de J2 (5 min)
 
-J2 (4 h) doit livrer des données générées et documentées. Répartition proposée :
-
-| Rôle                    | Tâche pour J2                                                                       |
-| ------------------------ | ------------------------------------------------------------------------------------ |
-| Données                 | Simulateur du parc normal (profil journalier + bruit), graine fixée                 |
-| Modèles                 | Injection des 3 incidents et de la fausse alerte, avec étiquettes                   |
-| Intégration             | Script de pseudonymisation (`CAPTEUR_n`, `GW_n`, `ZONE_n`), clé dans `.env` |
-| Sécurité & évaluation | Fiche terrain + 6 documents `docs_rt` + premiers cas de test écrits               |
+J2 (4 h) doit livrer des données générées et documentées. La répartition est dans la [note de cadrage](../suivi/note-cadrage.md), section 8.
 
 ---
 
-## Modèles à copier dans le dépôt
-
-### `NOTE_CADRAGE.md`
-
-```markdown
-# Note de cadrage — Copilote IA, parc de capteurs IoT
-
-Groupe : …  ·  Date : …
-
-## 1. Terrain choisi et justification
-Parcours IoT, terrain « parc de capteurs ». Pourquoi ce choix : …
-
-## 2. Le parc simulé
-Capteurs, passerelles, zones, fréquence, durée, champs de trame.
-
-## 3. Ce que l'IA détecte
-Défaillant, dérive, clone : définition, signature, action proposée.
-
-## 4. La fausse alerte
-Rejeu de tampon : pourquoi ce n'est pas un incident, comment le reconnaître.
-
-## 5. Premiers choix d'IA
-Grille de choix (règles, Isolation Forest, LLM local + RAG), modèle retenu.
-
-## 6. Premiers risques
-Menaces et parades prévues.
-
-## 7. Rôles
-Données : … · Modèles : … · Intégration : … · Sécurité & évaluation : …
-```
-
-### `JOURNAL_DECISIONS.md`
-
-```markdown
-# Journal de décisions
-
-| Date | Décision | Pourquoi | Alternatives écartées | Qui |
-|---|---|---|---|---|
-| 2026-10-27 | Terrain IoT parc de capteurs | … | Énergie d'un bâtiment | Groupe |
-| 2026-10-27 | Trames avec seq + ts_measure + ts_received | Seul moyen de distinguer rejeu et clone | Un seul horodatage | Groupe |
-```
-
----
+Les fichiers produits pendant la séance sont dans [`suivi/`](../suivi/) : `note-cadrage.md` et `journal-decisions.md`.
 
 ## Pièges à éviter dès la séance 1
 

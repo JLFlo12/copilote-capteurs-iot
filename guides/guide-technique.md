@@ -44,12 +44,12 @@ Le score est calculé uniquement par le code. Il y a 3 détecteurs, puis une fus
 
 ## Étape 3 — Pseudonymisation · `scripts/pseudo.py`
 
-- `CAPT-012` devient `CAPTEUR_n`, `GW-B` devient `GW_n`, la zone devient `ZONE_n`, via un HMAC avec la clé `PSEUDO_KEY` du `.env`.
+- `CAPT-012` devient `CAPTEUR_xxxxxx`, `GW-B` devient `GW_xxxxxx`, la zone devient `ZONE_xxxxxx` (6 caractères d'un HMAC avec la clé `PSEUDO_KEY` du `.env`).
 - Cette étape a lieu **avant** tout envoi au LLM.
 
 ## Étape 4 — RAG · `docs_rt/` et `rag/`
 
-- `docs_rt/` contient 6 documents courts et inventés : fiche terrain, runbook par incident, procédure de réétalonnage, procédure en cas de clone, liste blanche des actions.
+- `docs_rt/` contient 7 documents courts et inventés (RT-01 à RT-07) : fiche terrain, runbooks défaillant, dérive et rejeu de tampon, procédures de réétalonnage et de clone, liste blanche des actions.
 - `scripts/rag_indexer.py` : découpe les documents, calcule les embeddings avec `nomic-embed-text` et les enregistre dans `rag/embeddings.json`.
 - `scripts/rag_chercher.py` : renvoie les 3 passages les plus proches de l'alerte.
 
@@ -73,7 +73,7 @@ Le score est calculé uniquement par le code. Il y a 3 détecteurs, puis une fus
 
 - `evaluation/mesures.py` : précision et rappel par incident, avec la vérité terrain `label`.
 - Taux de fausses alertes sur les trames `replay_tampon` : objectif 0 incident déclaré.
-- `evaluation/cas_tests.jsonl` + `evaluation/tests_adverses.py` : au moins 15 cas.
+- `evaluation/cas-tests.jsonl` (20 cas) + `evaluation/tests_adverses.py`.
   - Injection de prompt dans un nom de zone.
   - Document empoisonné dans le RAG.
   - Demande d'action destructive.

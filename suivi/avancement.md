@@ -1,8 +1,8 @@
 # Avancement du projet
 
-Mis à jour à chaque séance. Le détail des choix est dans [JOURNAL_DECISIONS.md](JOURNAL_DECISIONS.md).
+Mis à jour à chaque séance. Le détail des choix est dans le [journal de décisions](journal-decisions.md).
 
-**Groupe (4)** : Florian, Lallie, Mathis, Matthias.
+Membres et rôles : [note de cadrage](note-cadrage.md), section 7.
 
 ## Vue d'ensemble
 
@@ -20,8 +20,8 @@ Mis à jour à chaque séance. Le détail des choix est dans [JOURNAL_DECISIONS.
 |---|---|---|
 | Base documentaire (≥ 5 fichiers) | `docs_rt/` (RT-01 à RT-07) | Fait |
 | Données propres et anonymisées | `simulateur/`, `scripts/pseudo.py` | Fait |
-| Dataset JSONL | `datasets/rt_instructions.jsonl` (12 exemples) | Fait |
-| Grille de tests (≥ 8) | `evaluation/cas_tests.jsonl` (20 cas) | Écrite, pas encore exécutée |
+| Dataset JSONL | `datasets/instructions-copilote.jsonl` (12 exemples) | Fait |
+| Grille de tests (≥ 8) | `evaluation/cas-tests.jsonl` (20 cas) | Écrite, pas encore exécutée |
 | Détection simple | `scripts/detection/` | J3 |
 | Recherche / RAG | `scripts/rag_*.py`, `rag/` | J4 |
 | Prompt système sécurisé, réponses sourcées, refus | `scripts/expliquer.py` | J4 |
@@ -38,22 +38,13 @@ Mis à jour à chaque séance. Le détail des choix est dans [JOURNAL_DECISIONS.
 
 ## Reproduire
 
-```bash
-python -m venv .venv && .venv/Scripts/pip install -r requirements.txt   # Linux : .venv/bin/
-cp .env.example .env        # puis mettre une vraie PSEUDO_KEY
-python simulateur/generer_parc.py
-python simulateur/injecter_incidents.py
-python evaluation/verifier_j2.py
-```
+Voir la section « Démarrage » du [README](../README.fr.md).
 
 ## Prochaine étape : J3
 
-1. `scripts/detection/regles.py` : défaillant (figé, hors plage, silence), clone, rejeu de tampon (5 critères).
-2. `scripts/detection/derive.py` : résidu par rapport aux voisins de zone, pente sur 72 h + CUSUM.
-3. `scripts/detection/iforest.py` : Isolation Forest entraîné sur les jours 1 à 3.
-4. `evaluation/mesures.py` : précision et rappel par incident ; 0 incident sur les rejeux de tampon.
+La détection : règles, dérive, Isolation Forest, puis précision et rappel par incident. Le détail est dans le [guide technique](../guides/guide-technique.md), étapes 2 et 7.
 
 ## En attente
 
-- Répartition des 4 rôles entre les membres ([NOTE_CADRAGE.md](NOTE_CADRAGE.md), section 7, et tableau Team des README).
-- Réponses de l'enseignant aux questions du point jalon (JOURNAL_DECISIONS.md).
+- Répartition des 4 rôles entre les membres ([note-cadrage.md](note-cadrage.md), section 7).
+- Réponses de l'enseignant aux questions du point jalon ([journal-decisions.md](journal-decisions.md)).

@@ -19,7 +19,7 @@ BUT3 R&T project, module R5.IA.13 (applied AI), based on the [Kodetis "Copilote 
 | Faulty sensor | Stuck value, out-of-range value, silence | Open an on-site inspection ticket |
 | Drift | Growing gap with the median of neighbouring sensors | Schedule a recalibration |
 | Cloned sensor | Duplicate `seq` with different values, two hardware fingerprints | Mark data as unreliable, open a security alert |
-| **False alarm:** buffer replay | Consecutive `seq`, `ts_measure` filling the reception gap, same fingerprint | None, or check why the gateway went down |
+| **False alarm:** buffer replay | Consecutive `seq`, `ts_measure` filling the reception gap, same fingerprint | None (info level); the outage is logged as an operations event |
 
 ## Non-negotiable rules
 
@@ -40,7 +40,7 @@ copilote-capteurs-iot/
 ├── suivi/        # progress, scoping note, decision log — in French
 ├── guides/       # project guides (technical, sessions) — in French
 ├── simulateur/   # fleet simulator (fixed seed)
-├── logs/         # generated frames (not committed) and decision log
+├── logs/         # generated frames (not committed) and operator validations
 ├── docs_rt/      # RAG documents: field sheet, runbooks, allowed actions
 ├── datasets/     # instruction/response JSONL
 ├── rag/          # chunks and embeddings (generated)
@@ -54,8 +54,8 @@ copilote-capteurs-iot/
 
 - [Technical guide in brief](guides/guide-technique.md): the 8 steps to build, tools and files.
 - [Session 1 guide](guides/guide-seance-1-cadrage.md): J1 scoping, minute-by-minute plan.
-- **[Progress](suivi/AVANCEMENT.md)**: where the project stands, open it first.
-- [Scoping note](suivi/NOTE_CADRAGE.md) and [decision log](suivi/JOURNAL_DECISIONS.md).
+- **[Progress](suivi/avancement.md)**: where the project stands, open it first.
+- [Scoping note](suivi/note-cadrage.md) and [decision log](suivi/journal-decisions.md).
 
 ## Getting started
 
@@ -67,13 +67,16 @@ ollama pull llama3.2:3b
 ollama pull nomic-embed-text
 ```
 
-Data generation, detection and the demo commands will be added as the milestones progress.
+Generate the data and check J2:
+
+```bash
+python simulateur/generer_parc.py
+python simulateur/injecter_incidents.py
+python evaluation/verifier_j2.py
+```
+
+Detection and demo commands will be added in the next milestones.
 
 ## Team
 
-| Role | Member |
-|---|---|
-| Data | |
-| Models | |
-| Integration | |
-| Security & evaluation | |
+Florian, Lallie, Mathis and Matthias. Roles are in the [scoping note](suivi/note-cadrage.md), section 7.

@@ -20,7 +20,8 @@ Une ligne par décision, la plus récente en bas.
 | 2026-10-30 | Pseudonymes HMAC tronqués (`CAPTEUR_f924e5`) plutôt que numéros (`CAPTEUR_1`) | Stables d'une alerte à l'autre, non réversibles sans la clé | Compteur (dépend de l'ordre d'arrivée) | Florian |
 | 2026-10-30 | 7 documents `docs_rt` (RT-01 à RT-07) au lieu de 6 | Rejeu de tampon et clone séparés : le LLM cite le bon runbook | Un seul runbook « sécurité » | Florian |
 | 2026-10-30 | 20 cas de test (`expected`, `forbidden`, `requires_sources`, format inspiré du TP5) | Grille de tests exigée par le sujet (≥ 8) ; couvre ses 8 questions adaptées à l'IoT et les attaques | Format maison | Florian |
-| 2026-10-30 | Dataset `datasets/rt_instructions.jsonl` (12 exemples `instruction/input/output`, pseudonymisés) | Livrable exigé par le sujet ; fixe le style de réponse attendu du copilote | Pas de dataset | Florian |
+| 2026-10-30 | Dataset `datasets/instructions-copilote.jsonl` (12 exemples `instruction/input/output`, pseudonymisés) | Livrable exigé par le sujet ; fixe le style de réponse attendu du copilote | Pas de dataset | Florian |
+| 2026-10-30 | Rangement : seuls les README à la racine ; `suivi/` et `guides/` ; noms en minuscules-tirets ; une seule source par information | Dépôt plus lisible, plus de doublons | Garder les fichiers à la racine | Florian |
 
 ## Questions pour le point jalon
 

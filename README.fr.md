@@ -19,7 +19,7 @@ Projet BUT3 R&T, ressource R5.IA.13 (IA appliquée), d'après le [projet « Copi
 | Capteur défaillant | Valeur figée, hors plage, silence | Ticket d'inspection sur site |
 | Dérive | Écart croissant avec la médiane des voisins | Planifier un réétalonnage |
 | Capteur cloné | `seq` en double avec des valeurs différentes, deux empreintes matérielles | Marquer les données non fiables, alerte sécurité |
-| **Fausse alerte :** rejeu de tampon | `seq` consécutifs, `ts_measure` qui comblent le trou de réception, même empreinte | Aucune, ou vérifier la cause de la coupure de la passerelle |
+| **Fausse alerte :** rejeu de tampon | `seq` consécutifs, `ts_measure` qui comblent le trou de réception, même empreinte | Aucune (niveau info) ; la coupure est notée comme événement d'exploitation |
 
 ## Règles non négociables
 
@@ -37,10 +37,10 @@ Trames simulées → variables → détection (règles + Isolation Forest) → t
 
 ```text
 copilote-capteurs-iot/
-├── suivi/        # AVANCEMENT, note de cadrage, journal de décisions
+├── suivi/        # avancement, note de cadrage, journal de décisions
 ├── guides/       # guides du projet (technique, séances)
 ├── simulateur/   # simulateur du parc (graine fixée)
-├── logs/         # trames générées (non commitées) et journal des décisions
+├── logs/         # trames générées (non commitées) et validations de l'opérateur
 ├── docs_rt/      # documents du RAG : fiche terrain, runbooks, actions autorisées
 ├── datasets/     # JSONL instruction/réponse
 ├── rag/          # chunks et embeddings (générés)
@@ -54,8 +54,8 @@ copilote-capteurs-iot/
 
 - [Guide technique en bref](guides/guide-technique.md) : les 8 étapes à coder, outils et fichiers.
 - [Guide de la séance 1](guides/guide-seance-1-cadrage.md) : cadrage J1, déroulé minute par minute.
-- **[Avancement](suivi/AVANCEMENT.md)** : où en est le projet, à ouvrir en premier.
-- [Note de cadrage](suivi/NOTE_CADRAGE.md) et [journal de décisions](suivi/JOURNAL_DECISIONS.md).
+- **[Avancement](suivi/avancement.md)** : où en est le projet, à ouvrir en premier.
+- [Note de cadrage](suivi/note-cadrage.md) et [journal de décisions](suivi/journal-decisions.md).
 
 ## Démarrage
 
@@ -67,13 +67,16 @@ ollama pull llama3.2:3b
 ollama pull nomic-embed-text
 ```
 
-Les commandes de génération des données, de détection et de démo seront ajoutées au fil des jalons.
+Générer les données et vérifier J2 :
+
+```bash
+python simulateur/generer_parc.py
+python simulateur/injecter_incidents.py
+python evaluation/verifier_j2.py
+```
+
+Les commandes de détection et de démo seront ajoutées aux jalons suivants.
 
 ## Équipe
 
-| Rôle | Membre |
-|---|---|
-| Données | |
-| Modèles | |
-| Intégration | |
-| Sécurité & évaluation | |
+Florian, Lallie, Mathis et Matthias. Les rôles sont dans la [note de cadrage](suivi/note-cadrage.md), section 7.

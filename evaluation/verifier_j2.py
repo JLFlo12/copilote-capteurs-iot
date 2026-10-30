@@ -71,12 +71,12 @@ docs = sorted((RACINE / "docs_rt").glob("RT-*.md"))
 verifier("Base documentaire : au moins 5 fichiers", len(docs) >= 5, str(len(docs)))
 ids_docs = {d.name[:5] for d in docs}
 
-tests = [json.loads(l) for l in open(RACINE / "evaluation/cas_tests.jsonl", encoding="utf-8")]
+tests = [json.loads(l) for l in open(RACINE / "evaluation/cas-tests.jsonl", encoding="utf-8")]
 verifier("Grille : au moins 8 tests", len(tests) >= 8, str(len(tests)))
 champs = {"id", "category", "question", "expected", "forbidden", "requires_sources"}
 verifier("Grille : champs complets", all(champs <= t.keys() for t in tests))
 
-data = [json.loads(l) for l in open(RACINE / "datasets/rt_instructions.jsonl", encoding="utf-8")]
+data = [json.loads(l) for l in open(RACINE / "datasets/instructions-copilote.jsonl", encoding="utf-8")]
 verifier("Dataset : champs instruction/input/output", all({"instruction", "input", "output"} <= e.keys() for e in data))
 fuite = [e["instruction"] for e in data if any(m.search(e["input"] + e["output"]) for m in MOTIFS.values())]
 verifier("Dataset : aucun identifiant réel", not fuite, str(fuite))
