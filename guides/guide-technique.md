@@ -1,6 +1,6 @@
 # Guide technique en bref — Copilote IA capteurs IoT
 
-Ce qu'on code, dans quel ordre, avec quels outils.
+Ce qu'on code, dans quel ordre, avec quels outils. Le rôle de chaque fichier est dans le [plan du dépôt](plan-du-depot.md).
 
 ## La pile
 

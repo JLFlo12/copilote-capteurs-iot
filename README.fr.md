@@ -52,6 +52,7 @@ copilote-capteurs-iot/
 
 ## Documentation
 
+- [Plan du dépôt](guides/plan-du-depot.md) : à quoi sert chaque fichier.
 - [Guide technique en bref](guides/guide-technique.md) : les 8 étapes à coder, outils et fichiers.
 - [Guide de la séance 1](guides/guide-seance-1-cadrage.md) : cadrage J1, déroulé minute par minute.
 - **[Avancement](suivi/avancement.md)** : où en est le projet, à ouvrir en premier.

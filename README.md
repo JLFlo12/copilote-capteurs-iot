@@ -52,6 +52,7 @@ copilote-capteurs-iot/
 
 ## Documentation (in French)
 
+- [Repository map](guides/plan-du-depot.md): what each file is for.
 - [Technical guide in brief](guides/guide-technique.md): the 8 steps to build, tools and files.
 - [Session 1 guide](guides/guide-seance-1-cadrage.md): J1 scoping, minute-by-minute plan.
 - **[Progress](suivi/avancement.md)**: where the project stands, open it first.
