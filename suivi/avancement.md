@@ -12,6 +12,7 @@ Membres et rôles : [note de cadrage](note-cadrage.md), section 7.
 | J2 | Simulateur, pseudonymisation, base documentaire, tests, dataset | Fait (30/10) |
 | J3 | Détection : règles, dérive, Isolation Forest + mesures | Fait (30/10) |
 | J4 | RAG + LLM + validation humaine + évaluation complète | À faire |
+| Interface | Page web locale de la démo | Commencée (30/10) : Parc, Alertes, Mesures |
 | Final | Rapport, démo de 5 min | À faire |
 
 ## Exigences du sujet
@@ -58,6 +59,14 @@ Résultats complets : [reports/mesures-j3.md](../reports/mesures-j3.md).
 ## Prochaine étape : J4
 
 Le copilote : RAG sur `docs_rt/`, explication par le LLM local, contrôle des sources et de la liste blanche, validation humaine, puis exécution des 20 cas de test. Détail : [guide technique](../guides/guide-technique.md), étapes 3 à 7.
+
+## Interface web et démo
+
+`interface/app.py` (Streamlit, locale) : onglets **Parc**, **Alertes** et **Mesures et tests** faits. En J4, on ajoute l'explication du LLM avec ses sources, les boutons Valider / Refuser (dry-run), un onglet **Décisions** et un onglet **Attaque en direct**.
+
+Déroulé prévu de la démo (5 min) : capteur figé → dérive → clone → rejeu de tampon (« probablement normal ») → attaque refusée → mesures et limite (dérive vue après 2 jours).
+
+Vérification finale, la veille, sur la machine de la démo : régénérer les données, lancer `verifier_j2.py` et `mesures.py`, puis les 20 tests du copilote ; répétition chronométrée ; « réchauffer » le LLM avant de commencer ; plan B : enregistrement vidéo et résultats déjà dans `reports/`.
 
 ## En attente
 

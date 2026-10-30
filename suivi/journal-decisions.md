@@ -26,6 +26,7 @@ Une ligne par décision, la plus récente en bas.
 | 2026-10-30 | Dérive : résidu lissé sur 24 h, CUSUM (k = 0,05, h = 20) ou pente > 0,1 °C/j sur 72 h ; alerte maintenue jusqu'au réétalonnage | Le lissage efface le cycle jour/nuit : 0 fausse alerte ; prix : 1,9 jour de délai | Seuil sur la valeur brute (bruit, cycle) | Florian |
 | 2026-10-30 | Isolation Forest entraîné sur toutes les trames, 8 192 par arbre, 0,1 % signalées | Entraîné sur les jours 1 à 3, il ne trouvait rien (pas d'extrapolation) ; 256 par arbre ratait les anomalies rares | Jours 1 à 3 seulement | Florian |
 | 2026-10-30 | Fusion : clone > défaillant > rejeu > dérive > inhabituel | La sécurité passe avant la maintenance ; un rejeu ne cache pas un clone | Une alerte par détecteur | Florian |
+| 2026-10-30 | Interface web en Streamlit (`interface/app.py`), locale | En Python comme le reste : les 4 membres peuvent la modifier ; démo plus claire qu'un terminal | Flask + HTML/JS (plus long), terminal seul | Florian |
 
 ## Questions pour le point jalon
 

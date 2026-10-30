@@ -37,6 +37,12 @@ Les fichiers marqués *(à venir)* sont prévus mais pas encore écrits. Les fic
 | `generer_parc.py` | Génère le parc **normal** : 40 capteurs, 14 jours, une trame toutes les 5 min, graine fixe. Sortie : `logs/trames_normales.csv`. |
 | `injecter_incidents.py` | Ajoute les incidents (défaillant, dérive, clone) et la fausse alerte (rejeu de tampon), avec la colonne `label`. Sortie : `logs/trames.csv`. |
 
+## `interface/` — la page web de la démo
+
+| Fichier | Utilité |
+|---|---|
+| `app.py` | Page web locale (Streamlit) : état du parc, courbe d'un capteur face à ses voisins, alertes avec preuves et sources, mesures et tests. Lancement : `streamlit run interface/app.py`. |
+
 ## `logs/` — les données produites
 
 | Fichier | Utilité |

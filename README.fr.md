@@ -76,6 +76,7 @@ python simulateur/injecter_incidents.py
 python evaluation/verifier_j2.py
 python scripts/detecter.py       # alertes dans logs/alertes.json
 python evaluation/mesures.py     # résultats dans reports/mesures-j3.md
+streamlit run interface/app.py   # page web locale : http://localhost:8501
 ```
 
 Les commandes de la démo seront ajoutées au jalon J4.
