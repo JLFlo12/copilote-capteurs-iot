@@ -15,6 +15,12 @@ Une ligne par décision, la plus récente en bas.
 | 2026-10-29 | Rejeu malveillant (`seq` déjà vus, sans trou de réception) traité comme `clone` | Même parade : données non fiables + alerte sécurité | Quatrième incident à part | Groupe |
 | 2026-10-29 | Score : règles + Isolation Forest + CUSUM ; le LLM explique seulement | Le score doit être calculé et testable | LLM qui décide | Groupe |
 | 2026-10-29 | LLM `llama3.2:3b`, repli `llama3.2:1b` | Tient sur une VM de 8 Go ; 4 s au premier appel, 0,1 s ensuite (PC perso) | `llama3.1:8b` (16 Go de RAM) | Groupe (latence à remesurer sur la VM) |
+| 2026-10-30 | Graine 2026, début le 02/11/2026 ; dérive à partir du jour 5 (10 jours) | Retrouve les ≈ 5 760 trames du plan ; données identiques à chaque génération | Données aléatoires à chaque fois | Florian |
+| 2026-10-30 | Rejeu GW-C au jour 10 laissé sur CAPT-023 en dérive (9 trames étiquetées rejeu) | Cas réaliste : deux phénomènes en même temps | Décaler la coupure | Florian |
+| 2026-10-30 | Pseudonymes HMAC tronqués (`CAPTEUR_f924e5`) plutôt que numéros (`CAPTEUR_1`) | Stables d'une alerte à l'autre, non réversibles sans la clé | Compteur (dépend de l'ordre d'arrivée) | Florian |
+| 2026-10-30 | 7 documents `docs_rt` (RT-01 à RT-07) au lieu de 6 | Rejeu de tampon et clone séparés : le LLM cite le bon runbook | Un seul runbook « sécurité » | Florian |
+| 2026-10-30 | 20 cas de test (`expected`, `forbidden`, `requires_sources`, format inspiré du TP5) | Grille de tests exigée par le sujet (≥ 8) ; couvre ses 8 questions adaptées à l'IoT et les attaques | Format maison | Florian |
+| 2026-10-30 | Dataset `datasets/rt_instructions.jsonl` (12 exemples `instruction/input/output`, pseudonymisés) | Livrable exigé par le sujet ; fixe le style de réponse attendu du copilote | Pas de dataset | Florian |
 
 ## Questions pour le point jalon
 
