@@ -10,7 +10,7 @@ Membres et rôles : [note de cadrage](note-cadrage.md), section 7.
 |---|---|---|
 | J1 | Cadrage : terrain, parc, incidents, fausse alerte, risques | Fait (29/10) — rôles et réponses de l'enseignant à compléter |
 | J2 | Simulateur, pseudonymisation, base documentaire, tests, dataset | Fait (30/10) |
-| J3 | Détection : règles, dérive, Isolation Forest + mesures | À faire |
+| J3 | Détection : règles, dérive, Isolation Forest + mesures | Fait (30/10) |
 | J4 | RAG + LLM + validation humaine + évaluation complète | À faire |
 | Final | Rapport, démo de 5 min | À faire |
 
@@ -22,7 +22,7 @@ Membres et rôles : [note de cadrage](note-cadrage.md), section 7.
 | Données propres et anonymisées | `simulateur/`, `scripts/pseudo.py` | Fait |
 | Dataset JSONL | `datasets/instructions-copilote.jsonl` (12 exemples) | Fait |
 | Grille de tests (≥ 8) | `evaluation/cas-tests.jsonl` (20 cas) | Écrite, pas encore exécutée |
-| Détection simple | `scripts/detection/` | J3 |
+| Détection simple | `scripts/detecter.py`, `scripts/detection/` | Fait |
 | Recherche / RAG | `scripts/rag_*.py`, `rag/` | J4 |
 | Prompt système sécurisé, réponses sourcées, refus | `scripts/expliquer.py` | J4 |
 | Rapport d'incident court | `scripts/copilote.py` | J4 |
@@ -40,9 +40,24 @@ Membres et rôles : [note de cadrage](note-cadrage.md), section 7.
 
 Voir la section « Démarrage » du [README](../README.fr.md).
 
-## Prochaine étape : J3
+## J3 — ce qui est fait (30/10, Florian)
 
-La détection : règles, dérive, Isolation Forest, puis précision et rappel par incident. Le détail est dans le [guide technique](../guides/guide-technique.md), étapes 2 et 7.
+Résultats complets : [reports/mesures-j3.md](../reports/mesures-j3.md).
+
+| Type | Précision | Rappel |
+|---|---|---|
+| Défaillant | 100 % | 100 % (+ silence de CAPT-036 signalé) |
+| Dérive | 100 % | 81 % (détectée 1,8 à 1,9 jour après son début) |
+| Clone | 100 % | 100 % |
+| Rejeu de tampon (info) | 100 % | 100 % ; 0 classé en incident |
+
+- 0 trame normale classée en incident. 19 alertes au total, dont 11 « inhabituel » (niveau mineur) venant de l'Isolation Forest.
+- Attaques déjouées : fausse coupure (5/5 classées clone), rejeu malveillant (12/12).
+- Limite à dire dans le rapport : la dérive n'est vue qu'après environ 2 jours, le temps que l'écart dépasse le bruit.
+
+## Prochaine étape : J4
+
+Le copilote : RAG sur `docs_rt/`, explication par le LLM local, contrôle des sources et de la liste blanche, validation humaine, puis exécution des 20 cas de test. Détail : [guide technique](../guides/guide-technique.md), étapes 3 à 7.
 
 ## En attente
 

@@ -74,9 +74,11 @@ Generate the data and check J2:
 python simulateur/generer_parc.py
 python simulateur/injecter_incidents.py
 python evaluation/verifier_j2.py
+python scripts/detecter.py       # alerts in logs/alertes.json
+python evaluation/mesures.py     # results in reports/mesures-j3.md
 ```
 
-Detection and demo commands will be added in the next milestones.
+Demo commands will be added in milestone J4.
 
 ## Team
 

@@ -43,6 +43,7 @@ Les fichiers marqués *(à venir)* sont prévus mais pas encore écrits. Les fic
 |---|---|
 | `trames_normales.csv` *(généré)* | Le parc sans aucune anomalie. Étape intermédiaire. |
 | `trames.csv` *(généré)* | Les trames complètes, incidents compris (≈ 161 000 lignes). C'est l'entrée de la détection. |
+| `alertes.json` *(généré)* | Les alertes produites par la détection. C'est l'entrée du copilote (J4). |
 | `decisions.jsonl` *(à venir)* | Une ligne par validation ou refus de l'opérateur. |
 
 ## `scripts/` — le copilote
@@ -50,9 +51,10 @@ Les fichiers marqués *(à venir)* sont prévus mais pas encore écrits. Les fic
 | Fichier | Utilité |
 |---|---|
 | `pseudo.py` | Remplace les vrais identifiants (`CAPT-012`, `GW-B`, `BAT-A-E3`) par des pseudonymes avant tout envoi au LLM. |
-| `detection/regles.py` *(à venir, J3)* | Règles : capteur figé, hors plage, silencieux ; clone ; rejeu de tampon. |
-| `detection/derive.py` *(à venir, J3)* | Repère une dérive en comparant chaque capteur à ses voisins de zone. |
-| `detection/iforest.py` *(à venir, J3)* | Isolation Forest : repère les comportements inhabituels. |
+| `detecter.py` | Lance les 3 détecteurs, fusionne leurs verdicts et écrit les alertes dans `logs/alertes.json`. |
+| `detection/regles.py` | Règles : capteur figé, hors plage, silencieux ; clone ; rejeu de tampon (les 5 critères de RT-05). |
+| `detection/derive.py` | Repère une dérive en comparant chaque capteur à ses voisins de zone. |
+| `detection/iforest.py` | Isolation Forest : repère les trames inhabituelles qu'aucune règle ne couvre. |
 | `rag_indexer.py`, `rag_chercher.py` *(à venir, J4)* | Découpent `docs_rt/`, calculent les embeddings et retrouvent les passages utiles. |
 | `expliquer.py` *(à venir, J4)* | Demande au LLM d'expliquer une alerte, puis vérifie les sources et les actions proposées. |
 | `copilote.py` *(à venir, J4)* | La chaîne complète : détecter, pseudonymiser, expliquer, faire valider par l'opérateur, journaliser. |
@@ -83,13 +85,13 @@ Le copilote lit ces documents pour justifier ses réponses et les cite (RT-01, R
 |---|---|
 | `verifier_j2.py` | 21 contrôles automatiques sur les données, la pseudonymisation, les documents, les tests et le dataset. |
 | `cas-tests.jsonl` | 20 questions de test avec les mots attendus et interdits (diagnostic, fausse alerte, attaques). |
-| `mesures.py` *(à venir, J3)* | Précision et rappel de la détection, par incident. |
+| `mesures.py` | Précision et rappel de la détection par type, objectifs, deux scénarios d'attaque. Écrit `reports/mesures-j3.md`. |
 | `tests_adverses.py` *(à venir, J4)* | Lance les 20 cas sur le copilote et note les réponses. |
 
-## Dossiers encore vides
+## Autres dossiers
 
 | Dossier | Utilité |
 |---|---|
 | `rag/` | Les morceaux de documents et leurs embeddings *(générés, J4)*. |
-| `models/` | Le modèle Isolation Forest entraîné et le `Modelfile` Ollama *(J3–J4)*. |
-| `reports/` | Les rapports d'incident, les résultats des tests et le rapport final *(à venir)*. |
+| `models/` | `iforest.joblib`, le modèle entraîné *(généré)* ; le `Modelfile` Ollama *(à venir, J4)*. |
+| `reports/` | `mesures-j3.md` (résultats de la détection) ; plus tard, rapports d'incident et rapport final. |

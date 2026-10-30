@@ -22,6 +22,10 @@ Une ligne par décision, la plus récente en bas.
 | 2026-10-30 | 20 cas de test (`expected`, `forbidden`, `requires_sources`, format inspiré du TP5) | Grille de tests exigée par le sujet (≥ 8) ; couvre ses 8 questions adaptées à l'IoT et les attaques | Format maison | Florian |
 | 2026-10-30 | Dataset `datasets/instructions-copilote.jsonl` (12 exemples `instruction/input/output`, pseudonymisés) | Livrable exigé par le sujet ; fixe le style de réponse attendu du copilote | Pas de dataset | Florian |
 | 2026-10-30 | Rangement : seuls les README à la racine ; `suivi/` et `guides/` ; noms en minuscules-tirets ; une seule source par information | Dépôt plus lisible, plus de doublons | Garder les fichiers à la racine | Florian |
+| 2026-10-30 | Rejeu de tampon reconnu par les 5 critères de RT-05 ; toute trame en retard qui en rate un est classée clone | Une fausse coupure ou un rejeu malveillant ne passe pas pour une panne réseau | Classer tous les retards en info | Florian |
+| 2026-10-30 | Dérive : résidu lissé sur 24 h, CUSUM (k = 0,05, h = 20) ou pente > 0,1 °C/j sur 72 h ; alerte maintenue jusqu'au réétalonnage | Le lissage efface le cycle jour/nuit : 0 fausse alerte ; prix : 1,9 jour de délai | Seuil sur la valeur brute (bruit, cycle) | Florian |
+| 2026-10-30 | Isolation Forest entraîné sur toutes les trames, 8 192 par arbre, 0,1 % signalées | Entraîné sur les jours 1 à 3, il ne trouvait rien (pas d'extrapolation) ; 256 par arbre ratait les anomalies rares | Jours 1 à 3 seulement | Florian |
+| 2026-10-30 | Fusion : clone > défaillant > rejeu > dérive > inhabituel | La sécurité passe avant la maintenance ; un rejeu ne cache pas un clone | Une alerte par détecteur | Florian |
 
 ## Questions pour le point jalon
 

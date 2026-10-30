@@ -74,9 +74,11 @@ Générer les données et vérifier J2 :
 python simulateur/generer_parc.py
 python simulateur/injecter_incidents.py
 python evaluation/verifier_j2.py
+python scripts/detecter.py       # alertes dans logs/alertes.json
+python evaluation/mesures.py     # résultats dans reports/mesures-j3.md
 ```
 
-Les commandes de détection et de démo seront ajoutées aux jalons suivants.
+Les commandes de la démo seront ajoutées au jalon J4.
 
 ## Équipe
 

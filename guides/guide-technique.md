@@ -36,11 +36,12 @@ Le score est calculé uniquement par le code. Il y a 3 détecteurs, puis une fus
 |---|---|---|
 | `regles.py` | Défaillant, clone, rejeu | Seuils de plage, écart-type nul sur 1 h, silence ; `seq` en double, 2 empreintes, trou commun à une passerelle |
 | `derive.py` | Dérive | Résidu = valeur − médiane des voisins de la zone ; pente sur 72 h + CUSUM |
-| `iforest.py` | Inhabituel multivarié | Isolation Forest entraîné sur les jours 1 à 3 (normaux) |
+| `iforest.py` | Inhabituel multivarié | Isolation Forest non supervisé sur toutes les trames, 0,1 % les plus isolées |
 
 - Le détecteur ne lit **jamais** la colonne `label`.
 - Le modèle Isolation Forest entraîné est enregistré dans `models/` (avec le `Modelfile` Ollama du copilote).
-- Sortie : une alerte en JSON (`capteur`, `type`, `score`, `preuves`).
+- `scripts/detecter.py` fusionne les verdicts (priorité : clone > défaillant > rejeu > dérive > inhabituel) et écrit `logs/alertes.json` : `type`, `niveau`, `cible`, `score`, `preuves`, `actions_proposees`, `sources`.
+- Pourquoi pas un entraînement sur les seuls jours 1 à 3 : l'Isolation Forest ne sait pas extrapoler hors des valeurs vues (un retard de 30 min suit le même chemin qu'un retard de 5 s). Résultat mesuré : 0 anomalie trouvée.
 
 ## Étape 3 — Pseudonymisation · `scripts/pseudo.py`
 
