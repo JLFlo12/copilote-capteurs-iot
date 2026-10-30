@@ -2,7 +2,7 @@
 
 Mis à jour à chaque séance. Le détail des choix est dans [JOURNAL_DECISIONS.md](JOURNAL_DECISIONS.md).
 
-**Groupe (4)** : Florian, Lallie, … (à compléter).
+**Groupe (4)** : Florian, Lallie, Mathis, Matthias.
 
 ## Vue d'ensemble
 
@@ -55,5 +55,5 @@ python evaluation/verifier_j2.py
 
 ## En attente
 
-- Liste complète des membres (4) et répartition des 4 rôles (NOTE_CADRAGE.md, section 7, et tableau Team des README).
+- Répartition des 4 rôles entre les membres (NOTE_CADRAGE.md, section 7, et tableau Team des README).
 - Réponses de l'enseignant aux questions du point jalon (JOURNAL_DECISIONS.md).
