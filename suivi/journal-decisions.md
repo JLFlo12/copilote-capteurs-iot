@@ -34,6 +34,8 @@ Une ligne par décision, la plus récente en bas.
 | 2026-10-30 | Source inventée → réponse remplacée par « information insuffisante » | Ne jamais montrer une procédure inventée à l'opérateur | Afficher la réponse avec un avertissement | Florian |
 | 2026-10-30 | Passages RAG pseudonymisés aussi | RT-01 cite les vrais noms : 2 fuites vers le LLM mesurées, 0 après | Retirer les noms de RT-01 | Florian |
 | 2026-10-30 | `rag.py` unique (indexer / chercher) au lieu de deux scripts | Moins de fichiers, même rôle | `rag_indexer.py` + `rag_chercher.py` | Florian |
+| 2026-10-30 | Statistiques d'usage de Streamlit coupées, page servie sur localhost seulement | Règle n° 3 : rien ne sort du poste | Laisser les réglages par défaut | Florian |
+| 2026-10-30 | `DRY_RUN=false` refusé au démarrage ; journal « exécutée » toujours à non | Aucun exécuteur n'existe : un journal qui dirait « exécutée » mentirait (règle n° 5) | Mode réel simulé | Florian |
 
 ## Questions pour le point jalon
 

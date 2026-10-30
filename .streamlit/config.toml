@@ -1,0 +1,6 @@
+# Règle n° 3 : rien ne sort du poste. Streamlit envoie sinon des statistiques d'usage à ses serveurs.
+[browser]
+gatherUsageStats = false
+
+[server]
+address = "localhost"

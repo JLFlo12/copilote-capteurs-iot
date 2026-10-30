@@ -12,6 +12,7 @@ Les fichiers marqués *(à venir)* sont prévus mais pas encore écrits. Les fic
 | `requirements.txt` | Bibliothèques Python à installer (`pip install -r requirements.txt`). |
 | `.env.example` | Modèle de configuration : clé de pseudonymisation, modèle Ollama, `DRY_RUN`. À copier en `.env`. |
 | `.env` | La vraie configuration, avec la clé secrète. **Jamais commité** (ignoré par Git). |
+| `.streamlit/config.toml` | Réglages de la page web : écoute seulement en local, statistiques d'usage de Streamlit coupées (règle n° 3). |
 | `.gitignore` | Ce que Git ignore : `.env`, `.venv/`, les CSV générés, les caches Python. |
 
 ## `suivi/` — le pilotage du projet

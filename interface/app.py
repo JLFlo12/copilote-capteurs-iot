@@ -12,7 +12,7 @@ import streamlit as st
 
 RACINE = Path(__file__).resolve().parent.parent
 sys.path[:0] = [str(RACINE / "scripts"), str(RACINE / "simulateur")]
-from config import DRY_RUN, OLLAMA_HOST, OLLAMA_MODEL  # noqa: E402
+from config import OLLAMA_HOST, OLLAMA_MODEL  # noqa: E402
 from copilote import DECISIONS, traiter  # noqa: E402
 from detecter import construire_alertes, detecter  # noqa: E402
 from detection.derive import residus  # noqa: E402
@@ -137,7 +137,7 @@ def bloc_copilote(a):
     decision = st.session_state.get(f"dec-{cle}")
     if decision:
         libelle = {"validee": "action validée", "refusee": "action refusée"}[decision]
-        st.success(f"Décision : {libelle}" + (" — dry-run, rien n'a été exécuté." if DRY_RUN and decision == "validee" else "."))
+        st.success(f"Décision : {libelle}" + (" — dry-run, rien n'a été exécuté." if decision == "validee" else "."))
         return
     v, r, _ = st.columns([1, 1, 4])
     for col, ok, libelle in [(v, True, "Valider"), (r, False, "Refuser")]:
@@ -154,7 +154,7 @@ def onglet_decisions():
     lignes = [json.loads(l) for l in DECISIONS.read_text(encoding="utf-8").splitlines() if l.strip()]
     t = pd.DataFrame([{"heure": d["horodatage"], "type": d["alerte"]["type"], "cible": d["alerte"]["cible"],
                        "actions": ", ".join(d["actions"]), "décision": {"validee": "validée", "refusee": "refusée"}[d["decision"]],
-                       "exécutée": "oui" if d["executee"] else "non (dry-run)" if d["decision"] == "validee" else "—",
+                       "exécutée": "non (dry-run)" if d["decision"] == "validee" else "—",
                        "écart du LLM": ", ".join(d["ecart_llm"]) or "—", "sources": ", ".join(d["sources"])}
                       for d in reversed(lignes)])
     st.caption(f"{len(t)} décision(s), journal : logs/decisions.jsonl. Le LLM peut proposer autre chose "
@@ -221,8 +221,7 @@ def main():
         st.error("Pas de données : lancer `python simulateur/generer_parc.py` puis `python simulateur/injecter_incidents.py`.")
         st.stop()
     if ollama_pret():
-        mode = "DRY-RUN (rien n'est exécuté)" if DRY_RUN else "RÉEL"
-        st.caption(f"LLM local : {OLLAMA_MODEL} · mode {mode}")
+        st.caption(f"LLM local : {OLLAMA_MODEL} · mode DRY-RUN : rien n'est exécuté")
     else:
         st.warning(f"Ollama ne répond pas sur {OLLAMA_HOST} : la détection s'affiche, mais pas les explications. "
                    "Lancer Ollama puis recharger la page.")

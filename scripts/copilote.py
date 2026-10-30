@@ -1,7 +1,7 @@
 """Chaîne complète : alertes → pseudonymisation → explication → validation humaine → journal.
 
 Le code décide du type, du score et de l'action ; le LLM explique ; l'opérateur valide ou refuse.
-Rien n'est exécuté tant que DRY_RUN=true (par défaut). Chaque décision va dans logs/decisions.jsonl,
+Rien n'est jamais exécuté : DRY_RUN=true est imposé par config.py (règle n° 5). Chaque décision va dans logs/decisions.jsonl,
 et chaque incident validé produit un rapport court dans reports/incidents/.
 Usage : python scripts/copilote.py [--max 5]
 """
@@ -9,7 +9,7 @@ import argparse
 import json
 from datetime import datetime
 
-from config import DRY_RUN, RACINE
+from config import RACINE
 from expliquer import LISTE_BLANCHE, expliquer_alerte
 from pseudo import Pseudonymiseur
 
@@ -37,7 +37,7 @@ def rapport_incident(alerte, explication, pseudo, operateur_ok):
         f"3. Constat (calculé par le code) : {' ; '.join(alerte['preuves'])}",
         f"4. Explication du copilote : {resume}",
         f"5. Action : {', '.join(alerte['actions_proposees'])} — "
-        f"{'validée' if operateur_ok else 'refusée'} par l'opérateur{' (dry-run, non exécutée)' if DRY_RUN else ''}",
+        f"{'validée' if operateur_ok else 'refusée'} par l'opérateur (dry-run, non exécutée)",
         f"6. Sources : {', '.join(explication['controles']['sources_valides']) or 'aucune'}",
     ])
 
@@ -50,7 +50,7 @@ def traiter(alerte, pseudo, decision, explication=None, operateur="operateur"):
         "horodatage": datetime.now().isoformat(timespec="seconds"), "operateur": operateur,
         "alerte": {k: alerte[k] for k in ("type", "niveau", "cible", "debut", "score")},
         "actions": actions, "decision": "validee" if decision else "refusee",
-        "executee": bool(decision and not DRY_RUN), "ecart_llm": ecart,
+        "executee": False, "ecart_llm": ecart,     # aucun exécuteur : dry-run imposé
         "sources": explication["controles"]["sources_valides"],
         "sources_inventees": explication["controles"]["sources_inventees"],
         "latence_s": explication["latence_s"],
@@ -86,13 +86,13 @@ def main():
         raise SystemExit("Pas d'alertes : lancer d'abord python scripts/detecter.py")
     alertes = [a for a in json.loads(ALERTES.read_text(encoding="utf-8")) if a["type"] != "inhabituel"][:args.max]
     pseudo = Pseudonymiseur()
-    print(f"{len(alertes)} alertes. Mode {'DRY-RUN : aucune action exécutée' if DRY_RUN else 'RÉEL'}.")
+    print(f"{len(alertes)} alertes. Mode DRY-RUN : aucune action n'est exécutée.")
     for a in alertes:
         explication = expliquer_alerte(a, pseudo)
         afficher(a, explication, pseudo)
         ok = input("\n  Valider l'action ? [o/n] ").strip().lower() == "o"
         entree, _ = traiter(a, pseudo, ok, explication)
-        print(f"  -> {entree['decision']}" + (" (dry-run)" if ok and DRY_RUN else ""))
+        print(f"  -> {entree['decision']}" + (" (dry-run)" if ok else ""))
     print(f"\nDécisions journalisées dans {DECISIONS}")
 
 
