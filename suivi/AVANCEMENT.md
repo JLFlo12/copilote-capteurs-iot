@@ -55,5 +55,5 @@ python evaluation/verifier_j2.py
 
 ## En attente
 
-- Répartition des 4 rôles entre les membres (NOTE_CADRAGE.md, section 7, et tableau Team des README).
+- Répartition des 4 rôles entre les membres ([NOTE_CADRAGE.md](NOTE_CADRAGE.md), section 7, et tableau Team des README).
 - Réponses de l'enseignant aux questions du point jalon (JOURNAL_DECISIONS.md).

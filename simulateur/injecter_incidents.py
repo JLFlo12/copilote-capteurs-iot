@@ -1,6 +1,6 @@
 """Injecte les incidents et la fausse alerte dans le parc normal (J2).
 
-Plan d'injection (voir NOTE_CADRAGE.md, section 3) :
+Plan d'injection (voir suivi/NOTE_CADRAGE.md, section 3) :
 - derive          : CAPT-007 et CAPT-023, +0,15 °C/jour à partir de la fin du jour 4
 - clone           : CAPT-031, second émetteur via GW-C pendant le jour 8
 - replay_tampon   : coupure GW-B 30 min (jour 6, 14 h) et GW-C 45 min (jour 10, 3 h)

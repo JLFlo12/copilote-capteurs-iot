@@ -37,7 +37,8 @@ Simulated frames → features → detection (rules + Isolation Forest) → false
 
 ```text
 copilote-capteurs-iot/
-├── docs/         # project guides (technical, sessions) — in French
+├── suivi/        # progress, scoping note, decision log — in French
+├── guides/       # project guides (technical, sessions) — in French
 ├── simulateur/   # fleet simulator (fixed seed)
 ├── logs/         # generated frames (not committed) and decision log
 ├── docs_rt/      # RAG documents: field sheet, runbooks, allowed actions
@@ -46,16 +47,15 @@ copilote-capteurs-iot/
 ├── models/       # Ollama Modelfile, trained Isolation Forest model
 ├── scripts/      # detection, pipeline, validation
 ├── evaluation/   # test cases (JSONL) and scoring grid
-├── reports/      # incident reports and test results (generated)
-├── NOTE_CADRAGE.md
-└── JOURNAL_DECISIONS.md
+└── reports/      # incident reports and test results (generated)
 ```
 
 ## Documentation (in French)
 
-- [Technical guide in brief](docs/guide-technique.md): the 8 steps to build, tools and files.
-- [Session 1 guide](docs/guide-seance-1-cadrage.md): J1 scoping, minute-by-minute plan.
-- [Scoping note](NOTE_CADRAGE.md) and [decision log](JOURNAL_DECISIONS.md).
+- [Technical guide in brief](guides/guide-technique.md): the 8 steps to build, tools and files.
+- [Session 1 guide](guides/guide-seance-1-cadrage.md): J1 scoping, minute-by-minute plan.
+- **[Progress](suivi/AVANCEMENT.md)**: where the project stands, open it first.
+- [Scoping note](suivi/NOTE_CADRAGE.md) and [decision log](suivi/JOURNAL_DECISIONS.md).
 
 ## Getting started
 
