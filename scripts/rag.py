@@ -9,7 +9,7 @@ import sys
 import numpy as np
 import requests
 
-from config import EMBED_MODEL, OLLAMA_HOST, RACINE
+from config import EMBED_MODEL, OLLAMA_HOST, OLLAMA_TIMEOUT, RACINE
 
 DOCS = RACINE / "docs_rt"
 INDEX = RACINE / "rag" / "embeddings.json"
@@ -40,7 +40,7 @@ def decouper(texte):
 
 
 def embed(textes):
-    r = requests.post(f"{OLLAMA_HOST}/api/embed", json={"model": EMBED_MODEL, "input": textes}, timeout=300)
+    r = requests.post(f"{OLLAMA_HOST}/api/embed", json={"model": EMBED_MODEL, "input": textes}, timeout=OLLAMA_TIMEOUT)
     r.raise_for_status()
     return r.json()["embeddings"]
 

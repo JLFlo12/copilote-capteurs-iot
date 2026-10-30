@@ -53,6 +53,8 @@ def traiter(alerte, pseudo, decision, explication=None, operateur="operateur"):
         "executee": False, "ecart_llm": ecart,     # aucun exécuteur : dry-run imposé
         "sources": explication["controles"]["sources_valides"],
         "sources_inventees": explication["controles"]["sources_inventees"],
+        "actions_refusees": explication["controles"]["actions_refusees"],
+        "injection_detectee": explication["controles"]["injection_detectee"],
         "latence_s": explication["latence_s"],
     }
     DECISIONS.parent.mkdir(exist_ok=True)

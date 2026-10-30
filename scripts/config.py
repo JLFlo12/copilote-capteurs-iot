@@ -27,6 +27,7 @@ def lire(nom, defaut=None):
 OLLAMA_HOST = lire("OLLAMA_HOST", "http://localhost:11434")
 OLLAMA_MODEL = lire("OLLAMA_MODEL", "llama3.2:3b")
 EMBED_MODEL = lire("EMBED_MODEL", "nomic-embed-text")
+OLLAMA_TIMEOUT = int(lire("OLLAMA_TIMEOUT", "300"))
 DRY_RUN = lire("DRY_RUN", "true").lower() != "false"
 if not DRY_RUN:
     # Aucun exécuteur n'est branché : le copilote propose, il n'agit jamais (règle n° 5).
