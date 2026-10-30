@@ -11,8 +11,8 @@ Membres et rôles : [note de cadrage](note-cadrage.md), section 7.
 | J1 | Cadrage : terrain, parc, incidents, fausse alerte, risques | Fait (29/10) — rôles et réponses de l'enseignant à compléter |
 | J2 | Simulateur, pseudonymisation, base documentaire, tests, dataset | Fait (30/10) |
 | J3 | Détection : règles, dérive, Isolation Forest + mesures | Fait (30/10) |
-| J4 | RAG + LLM + validation humaine + évaluation complète | En cours : copilote et tests faits (30/10), interface à brancher |
-| Interface | Page web locale de la démo | Commencée (30/10) : Parc, Alertes, Mesures |
+| J4 | RAG + LLM + validation humaine + évaluation complète | Fait (30/10) — note humaine des tests à faire |
+| Interface | Page web locale de la démo | Faite (30/10) |
 | Final | Rapport, démo de 5 min | À faire |
 
 ## Exigences du sujet
@@ -68,12 +68,11 @@ Résultats : [reports/tests-j4.md](../reports/tests-j4.md). LLM `llama3.2:3b` su
 
 ## Reste à faire pour J4
 
-1. Brancher l'interface : explication du LLM, boutons Valider / Refuser, onglets Décisions et Attaque en direct.
-2. Note humaine des 20 réponses (colonne `note_humaine_20` de `reports/tests-j4.csv`), avec au moins 5 notes justifiées.
+1. Note humaine des 20 réponses (colonne `note_humaine_20` de `reports/tests-j4.csv`), avec au moins 5 notes justifiées.
 
 ## Interface web et démo
 
-`interface/app.py` (Streamlit, locale) : onglets **Parc**, **Alertes** et **Mesures et tests** faits. En J4, on ajoute l'explication du LLM avec ses sources, les boutons Valider / Refuser (dry-run), un onglet **Décisions** et un onglet **Attaque en direct**.
+`interface/app.py` (Streamlit, locale) : onglets **Parc**, **Alertes** (avec explication du copilote et boutons Valider / Refuser, en dry-run), **Décisions**, **Attaque en direct** et **Mesures et tests**.
 
 Déroulé prévu de la démo (5 min) : capteur figé → dérive → clone → rejeu de tampon (« probablement normal ») → attaque refusée → mesures et limite (dérive vue après 2 jours).
 

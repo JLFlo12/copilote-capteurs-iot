@@ -41,7 +41,7 @@ Les fichiers marqués *(à venir)* sont prévus mais pas encore écrits. Les fic
 
 | Fichier | Utilité |
 |---|---|
-| `app.py` | Page web locale (Streamlit) : état du parc, courbe d'un capteur face à ses voisins, alertes avec preuves et sources, mesures et tests. Lancement : `streamlit run interface/app.py`. |
+| `app.py` | Page web locale (Streamlit), le support de la démo. Onglets : **Parc** (état des capteurs, courbe face aux voisins), **Alertes** (preuves, sources, explication du copilote, Valider / Refuser), **Décisions** (journal), **Attaque en direct** (tenter une injection et voir les parades), **Mesures et tests**. Lancement : `streamlit run interface/app.py`. |
 
 ## `logs/` — les données produites
 
