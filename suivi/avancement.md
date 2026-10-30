@@ -66,19 +66,28 @@ Résultats : [reports/tests-j4.md](../reports/tests-j4.md). LLM `llama3.2:3b` su
 - **Tests** : 14/20 au score automatique. À la relecture, le score se trompe dans les deux sens : BAT-01 est un bon refus compté en échec ; DEF-01 et DEF-02 sont comptés réussis mais le modèle se trompe sur les nombres.
 - **Limite à mettre dans le rapport** : le modèle 3B raisonne mal sur les chiffres et confond parfois défaillant et dérive. C'est pour ça que le code fixe le type et l'action, et que le LLM ne fait qu'expliquer.
 
-## Reste à faire pour J4
-
-1. Note humaine des 20 réponses (colonne `note_humaine_20` de `reports/tests-j4.csv`), avec au moins 5 notes justifiées.
-
 ## Interface web et démo
 
 `interface/app.py` (Streamlit, locale) : onglets **Parc**, **Alertes** (avec explication du copilote et boutons Valider / Refuser, en dry-run), **Décisions**, **Attaque en direct** et **Mesures et tests**.
 
 Déroulé prévu de la démo (5 min) : capteur figé → dérive → clone → rejeu de tampon (« probablement normal ») → attaque refusée → mesures et limite (dérive vue après 2 jours).
 
-Vérification finale, la veille, sur la machine de la démo : régénérer les données, lancer `verifier_j2.py` et `mesures.py`, puis les 20 tests du copilote ; répétition chronométrée ; « réchauffer » le LLM avant de commencer ; plan B : enregistrement vidéo et résultats déjà dans `reports/`.
+## Tâches restantes, par rôle
 
-## En attente
+Qui tient quel rôle : [note de cadrage](note-cadrage.md), section 7. Chacun relit le code et les résultats de son rôle pour savoir les expliquer à l'oral ; personne n'a à les réécrire.
 
-- Répartition des 4 rôles entre les membres ([note-cadrage.md](note-cadrage.md), section 7).
-- Réponses de l'enseignant aux questions du point jalon ([journal-decisions.md](journal-decisions.md)).
+| Rôle | Tâches | Partie du rapport | Dans la démo |
+|---|---|---|---|
+| Intégration | Installer et tester le projet sur la VM du TP0 ; remesurer la latence (passer à `llama3.2:1b` si la VM manque de mémoire) ; noter les réponses de l'enseignant dans le journal ; vérification finale la veille | Architecture, chaîne complète, installation | Pilote la page web |
+| Données | Relire le simulateur (`simulateur/`) ; faire le schéma du parc (bâtiments, zones, passerelles) | Problème et terrain : parc simulé, incidents, rejeu de tampon | Parc et capteur figé |
+| Modèles | Relire la détection (`scripts/detection/`) et [mesures-j3.md](../reports/mesures-j3.md) ; savoir justifier règles, CUSUM et Isolation Forest | Choix et justification des modèles, résultats de la détection, limites | Dérive et clone |
+| Sécurité & évaluation | Note humaine des 20 réponses (colonne `note_humaine_20` de `reports/tests-j4.csv`), dont au moins 5 justifiées : 2 bonnes, 2 insuffisantes, 1 dangereuse ou ambiguë (à partager à 5 tests chacun si besoin) ; relire les 5 règles et leurs parades | Sécurité, tests du copilote, limites du LLM 3B | Rejeu de tampon et attaque en direct |
+
+**Ensemble** :
+
+- Répartir les rôles et poser les questions du point jalon à l'enseignant ([journal-decisions.md](journal-decisions.md)).
+- Relire le rapport (4 à 6 pages) : chacun relit les parties des autres.
+- Répéter la démo, chronomètre en main (environ 1 min 15 par personne) ; enregistrer une vidéo comme plan B.
+- La veille, sur la machine de la démo : régénérer les données, lancer `verifier_j2.py`, `mesures.py` et `tests_copilote.py`, vérifier que GitHub est à jour, « réchauffer » le LLM.
+
+**Ordre conseillé** : rôles et questions à l'enseignant → VM et note humaine en parallèle → rapport → répétition et vérification finale.
