@@ -76,6 +76,9 @@ python simulateur/injecter_incidents.py
 python evaluation/verifier_j2.py
 python scripts/detecter.py       # alertes dans logs/alertes.json
 python evaluation/mesures.py     # résultats dans reports/mesures-j3.md
+python scripts/rag.py indexer    # base du RAG (Ollama lancé)
+python scripts/copilote.py --max 3   # copilote en terminal, validation humaine
+python evaluation/tests_copilote.py  # 20 tests, résultats dans reports/tests-j4.md
 streamlit run interface/app.py   # page web locale : http://localhost:8501
 ```
 

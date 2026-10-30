@@ -18,3 +18,5 @@ reports/*
 logs/*.json
 models/*.joblib
 !reports/mesures-j3.md
+!reports/tests-j4.md
+!reports/tests-j4.csv

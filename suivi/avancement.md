@@ -11,7 +11,7 @@ Membres et rôles : [note de cadrage](note-cadrage.md), section 7.
 | J1 | Cadrage : terrain, parc, incidents, fausse alerte, risques | Fait (29/10) — rôles et réponses de l'enseignant à compléter |
 | J2 | Simulateur, pseudonymisation, base documentaire, tests, dataset | Fait (30/10) |
 | J3 | Détection : règles, dérive, Isolation Forest + mesures | Fait (30/10) |
-| J4 | RAG + LLM + validation humaine + évaluation complète | À faire |
+| J4 | RAG + LLM + validation humaine + évaluation complète | En cours : copilote et tests faits (30/10), interface à brancher |
 | Interface | Page web locale de la démo | Commencée (30/10) : Parc, Alertes, Mesures |
 | Final | Rapport, démo de 5 min | À faire |
 
@@ -19,14 +19,14 @@ Membres et rôles : [note de cadrage](note-cadrage.md), section 7.
 
 | Exigence | Où | État |
 |---|---|---|
-| Base documentaire (≥ 5 fichiers) | `docs_rt/` (RT-01 à RT-07) | Fait |
+| Base documentaire (≥ 5 fichiers) | `docs_rt/` (RT-01 à RT-08) | Fait |
 | Données propres et anonymisées | `simulateur/`, `scripts/pseudo.py` | Fait |
 | Dataset JSONL | `datasets/instructions-copilote.jsonl` (12 exemples) | Fait |
-| Grille de tests (≥ 8) | `evaluation/cas-tests.jsonl` (20 cas) | Écrite, pas encore exécutée |
+| Grille de tests (≥ 8) | `evaluation/cas-tests.jsonl` (20 cas) | Exécutée : 14/20 (score auto), note humaine à faire |
 | Détection simple | `scripts/detecter.py`, `scripts/detection/` | Fait |
-| Recherche / RAG | `scripts/rag_*.py`, `rag/` | J4 |
-| Prompt système sécurisé, réponses sourcées, refus | `scripts/expliquer.py` | J4 |
-| Rapport d'incident court | `scripts/copilote.py` | J4 |
+| Recherche / RAG | `scripts/rag.py`, `rag/` | Fait |
+| Prompt système sécurisé, réponses sourcées, refus | `scripts/expliquer.py` | Fait |
+| Rapport d'incident court | `scripts/copilote.py` → `reports/incidents/` | Fait |
 | Rapport technique, démo | `reports/` | Final |
 
 ## J2 — ce qui est fait (30/10, Florian)
@@ -56,9 +56,20 @@ Résultats complets : [reports/mesures-j3.md](../reports/mesures-j3.md).
 - Attaques déjouées : fausse coupure (5/5 classées clone), rejeu malveillant (12/12).
 - Limite à dire dans le rapport : la dérive n'est vue qu'après environ 2 jours, le temps que l'écart dépasse le bruit.
 
-## Prochaine étape : J4
+## J4 — ce qui est fait (30/10, Florian)
 
-Le copilote : RAG sur `docs_rt/`, explication par le LLM local, contrôle des sources et de la liste blanche, validation humaine, puis exécution des 20 cas de test. Détail : [guide technique](../guides/guide-technique.md), étapes 3 à 7.
+Résultats : [reports/tests-j4.md](../reports/tests-j4.md). LLM `llama3.2:3b` sur le PC de Florian, environ 5 s par réponse.
+
+- **RAG** : 8 documents découpés en 20 passages ; le bon runbook est retrouvé en tête dans 4 requêtes de test sur 5.
+- **Contrôles par le code** : source inventée → réponse bloquée ; action hors liste blanche → ignorée et notée dans le journal ; données des capteurs entre balises ; passages et questions pseudonymisés (0 identifiant réel envoyé au LLM).
+- **Chaîne** : `copilote.py` explique chaque alerte, l'opérateur valide ou refuse, tout va dans `logs/decisions.jsonl`, rapport de 6 lignes dans `reports/incidents/`.
+- **Tests** : 14/20 au score automatique. À la relecture, le score se trompe dans les deux sens : BAT-01 est un bon refus compté en échec ; DEF-01 et DEF-02 sont comptés réussis mais le modèle se trompe sur les nombres.
+- **Limite à mettre dans le rapport** : le modèle 3B raisonne mal sur les chiffres et confond parfois défaillant et dérive. C'est pour ça que le code fixe le type et l'action, et que le LLM ne fait qu'expliquer.
+
+## Reste à faire pour J4
+
+1. Brancher l'interface : explication du LLM, boutons Valider / Refuser, onglets Décisions et Attaque en direct.
+2. Note humaine des 20 réponses (colonne `note_humaine_20` de `reports/tests-j4.csv`), avec au moins 5 notes justifiées.
 
 ## Interface web et démo
 

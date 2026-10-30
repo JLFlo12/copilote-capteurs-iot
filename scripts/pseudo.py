@@ -9,10 +9,10 @@ Usage : python scripts/pseudo.py '{"capteur": "CAPT-012", "zone": "BAT-A-E1"}'
 import hashlib
 import hmac
 import json
-import os
 import re
 import sys
-from pathlib import Path
+
+import config
 
 MOTIFS = {
     "CAPTEUR": re.compile(r"\bCAPT-\d{3}\b"),
@@ -23,12 +23,7 @@ MOTIFS = {
 
 def charger_cle():
     """Lit PSEUDO_KEY dans l'environnement, sinon dans le .env du dépôt."""
-    cle = os.environ.get("PSEUDO_KEY")
-    env = Path(__file__).resolve().parent.parent / ".env"
-    if not cle and env.exists():
-        for ligne in env.read_text(encoding="utf-8").splitlines():
-            if ligne.startswith("PSEUDO_KEY="):
-                cle = ligne.split("=", 1)[1].strip()
+    cle = config.lire("PSEUDO_KEY")
     if not cle or cle == "change-me":
         raise SystemExit("PSEUDO_KEY absente ou par défaut : la définir dans .env")
     return cle.encode()

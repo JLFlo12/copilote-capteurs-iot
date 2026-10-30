@@ -50,20 +50,21 @@ Les fichiers marqués *(à venir)* sont prévus mais pas encore écrits. Les fic
 | `trames_normales.csv` *(généré)* | Le parc sans aucune anomalie. Étape intermédiaire. |
 | `trames.csv` *(généré)* | Les trames complètes, incidents compris (≈ 161 000 lignes). C'est l'entrée de la détection. |
 | `alertes.json` *(généré)* | Les alertes produites par la détection. C'est l'entrée du copilote (J4). |
-| `decisions.jsonl` *(à venir)* | Une ligne par validation ou refus de l'opérateur. |
+| `decisions.jsonl` *(généré)* | Une ligne par validation ou refus de l'opérateur. |
 
 ## `scripts/` — le copilote
 
 | Fichier | Utilité |
 |---|---|
+| `config.py` | Lit la configuration (`.env` ou variables d'environnement) : modèle Ollama, `DRY_RUN`, clé. |
 | `pseudo.py` | Remplace les vrais identifiants (`CAPT-012`, `GW-B`, `BAT-A-E3`) par des pseudonymes avant tout envoi au LLM. |
 | `detecter.py` | Lance les 3 détecteurs, fusionne leurs verdicts et écrit les alertes dans `logs/alertes.json`. |
 | `detection/regles.py` | Règles : capteur figé, hors plage, silencieux ; clone ; rejeu de tampon (les 5 critères de RT-05). |
 | `detection/derive.py` | Repère une dérive en comparant chaque capteur à ses voisins de zone. |
 | `detection/iforest.py` | Isolation Forest : repère les trames inhabituelles qu'aucune règle ne couvre. |
-| `rag_indexer.py`, `rag_chercher.py` *(à venir, J4)* | Découpent `docs_rt/`, calculent les embeddings et retrouvent les passages utiles. |
-| `expliquer.py` *(à venir, J4)* | Demande au LLM d'expliquer une alerte, puis vérifie les sources et les actions proposées. |
-| `copilote.py` *(à venir, J4)* | La chaîne complète : détecter, pseudonymiser, expliquer, faire valider par l'opérateur, journaliser. |
+| `rag.py` | Découpe `docs_rt/` en passages, calcule les embeddings (`rag.py indexer`) et retrouve les 3 passages les plus proches (`rag.py chercher "…"`). |
+| `expliquer.py` | Demande au LLM d'expliquer une alerte ou de répondre à une question, puis le code contrôle : sources existantes (une source inventée bloque la réponse), actions de la liste blanche, injection. |
+| `copilote.py` | La chaîne complète en terminal : chaque alerte est expliquée, l'opérateur valide ou refuse, la décision est journalisée et un rapport d'incident de 6 lignes est écrit. |
 
 ## `docs_rt/` — la base documentaire du RAG
 
@@ -78,6 +79,7 @@ Le copilote lit ces documents pour justifier ses réponses et les cite (RT-01, R
 | `RT-05-runbook-rejeu-tampon.md` | La fausse alerte : les 5 critères d'un rejeu de tampon normal. |
 | `RT-06-procedure-clone.md` | Capteur cloné ou rejeu malveillant : conduite à tenir. |
 | `RT-07-liste-blanche-actions.md` | Les 5 seules actions que le copilote peut proposer, et ce qui est interdit. |
+| `RT-08-regles-usage.md` | Rafales d'alertes, données interdites dans un dataset ou un prompt, validation humaine. |
 
 ## `datasets/` — les exemples de réponses
 
@@ -92,12 +94,12 @@ Le copilote lit ces documents pour justifier ses réponses et les cite (RT-01, R
 | `verifier_j2.py` | 21 contrôles automatiques sur les données, la pseudonymisation, les documents, les tests et le dataset. |
 | `cas-tests.jsonl` | 20 questions de test avec les mots attendus et interdits (diagnostic, fausse alerte, attaques). |
 | `mesures.py` | Précision et rappel de la détection par type, objectifs, deux scénarios d'attaque. Écrit `reports/mesures-j3.md`. |
-| `tests_adverses.py` *(à venir, J4)* | Lance les 20 cas sur le copilote et note les réponses. |
+| `tests_copilote.py` | Lance les 20 cas sur le copilote, note automatiquement les réponses et écrit `reports/tests-j4.md` et `.csv` (colonne de note humaine à remplir). |
 
 ## Autres dossiers
 
 | Dossier | Utilité |
 |---|---|
-| `rag/` | Les morceaux de documents et leurs embeddings *(générés, J4)*. |
-| `models/` | `iforest.joblib`, le modèle entraîné *(généré)* ; le `Modelfile` Ollama *(à venir, J4)*. |
-| `reports/` | `mesures-j3.md` (résultats de la détection) ; plus tard, rapports d'incident et rapport final. |
+| `rag/` | `embeddings.json` : les passages de `docs_rt/` et leurs embeddings *(généré)*. |
+| `models/` | `iforest.joblib`, le modèle entraîné *(généré)*. |
+| `reports/` | `mesures-j3.md` (détection), `tests-j4.md` et `.csv` (copilote), `incidents/` (rapports d'incident, générés) ; plus tard, le rapport final. |

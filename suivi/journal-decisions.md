@@ -27,6 +27,13 @@ Une ligne par décision, la plus récente en bas.
 | 2026-10-30 | Isolation Forest entraîné sur toutes les trames, 8 192 par arbre, 0,1 % signalées | Entraîné sur les jours 1 à 3, il ne trouvait rien (pas d'extrapolation) ; 256 par arbre ratait les anomalies rares | Jours 1 à 3 seulement | Florian |
 | 2026-10-30 | Fusion : clone > défaillant > rejeu > dérive > inhabituel | La sécurité passe avant la maintenance ; un rejeu ne cache pas un clone | Une alerte par détecteur | Florian |
 | 2026-10-30 | Interface web en Streamlit (`interface/app.py`), locale | En Python comme le reste : les 4 membres peuvent la modifier ; démo plus claire qu'un terminal | Flask + HTML/JS (plus long), terminal seul | Florian |
+| 2026-10-30 | RT-08 (règles d'usage : rafales d'alertes, données interdites, validation humaine) ; HALLU-01/02 sans sources exigées | Les tests BAT-01 et POL-02 portaient sur des règles absentes de la base ; un test d'hallucination réussit quand le copilote ne cite rien | Changer les termes attendus pour faire passer les tests | Florian |
+| 2026-10-30 | Le code fixe le type, le score et l'action ; le LLM explique ; un écart du LLM est noté, pas suivi | Le 3B se trompe sur les nombres (21,4 °C dit « hors plage ») | Laisser le LLM choisir l'action | Florian |
+| 2026-10-30 | Réponse JSON imposée (`format: json`), température 0,1, graine 42 | Réponses contrôlables par le code et reproductibles | Texte libre | Florian |
+| 2026-10-30 | Question de l'opérateur hors balises, données des capteurs entre balises `<donnees>` | Avec la question entre balises, le LLM refusait des demandes légitimes | Tout entre balises | Florian |
+| 2026-10-30 | Source inventée → réponse remplacée par « information insuffisante » | Ne jamais montrer une procédure inventée à l'opérateur | Afficher la réponse avec un avertissement | Florian |
+| 2026-10-30 | Passages RAG pseudonymisés aussi | RT-01 cite les vrais noms : 2 fuites vers le LLM mesurées, 0 après | Retirer les noms de RT-01 | Florian |
+| 2026-10-30 | `rag.py` unique (indexer / chercher) au lieu de deux scripts | Moins de fichiers, même rôle | `rag_indexer.py` + `rag_chercher.py` | Florian |
 
 ## Questions pour le point jalon
 

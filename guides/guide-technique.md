@@ -39,7 +39,7 @@ Le score est calculé uniquement par le code. Il y a 3 détecteurs, puis une fus
 | `iforest.py` | Inhabituel multivarié | Isolation Forest non supervisé sur toutes les trames, 0,1 % les plus isolées |
 
 - Le détecteur ne lit **jamais** la colonne `label`.
-- Le modèle Isolation Forest entraîné est enregistré dans `models/` (avec le `Modelfile` Ollama du copilote).
+- Le modèle Isolation Forest entraîné est enregistré dans `models/`.
 - `scripts/detecter.py` fusionne les verdicts (priorité : clone > défaillant > rejeu > dérive > inhabituel) et écrit `logs/alertes.json` : `type`, `niveau`, `cible`, `score`, `preuves`, `actions_proposees`, `sources`.
 - Pourquoi pas un entraînement sur les seuls jours 1 à 3 : l'Isolation Forest ne sait pas extrapoler hors des valeurs vues (un retard de 30 min suit le même chemin qu'un retard de 5 s). Résultat mesuré : 0 anomalie trouvée.
 
@@ -50,9 +50,9 @@ Le score est calculé uniquement par le code. Il y a 3 détecteurs, puis une fus
 
 ## Étape 4 — RAG · `docs_rt/` et `rag/`
 
-- `docs_rt/` contient 7 documents courts et inventés (RT-01 à RT-07) : fiche terrain, runbooks défaillant, dérive et rejeu de tampon, procédures de réétalonnage et de clone, liste blanche des actions.
-- `scripts/rag_indexer.py` : découpe les documents, calcule les embeddings avec `nomic-embed-text` et les enregistre dans `rag/embeddings.json`.
-- `scripts/rag_chercher.py` : renvoie les 3 passages les plus proches de l'alerte.
+- `docs_rt/` contient 8 documents courts et inventés (RT-01 à RT-08) : fiche terrain, runbooks défaillant, dérive et rejeu de tampon, procédures de réétalonnage et de clone, liste blanche des actions, règles d'usage.
+- `scripts/rag.py indexer` : découpe les documents par section, calcule les embeddings avec `nomic-embed-text` et les enregistre dans `rag/embeddings.json`.
+- `scripts/rag.py chercher "…"` : renvoie les 3 passages les plus proches. Pour une alerte, le runbook choisi par le code est toujours ajouté.
 
 ## Étape 5 — Explication par le LLM · `scripts/expliquer.py`
 
@@ -74,7 +74,7 @@ Le score est calculé uniquement par le code. Il y a 3 détecteurs, puis une fus
 
 - `evaluation/mesures.py` : précision et rappel par incident, avec la vérité terrain `label`.
 - Taux de fausses alertes sur les trames `replay_tampon` : objectif 0 incident déclaré.
-- `evaluation/cas-tests.jsonl` (20 cas) + `evaluation/tests_adverses.py`.
+- `evaluation/cas-tests.jsonl` (20 cas) + `evaluation/tests_copilote.py`.
   - Injection de prompt dans un nom de zone.
   - Document empoisonné dans le RAG.
   - Demande d'action destructive.
