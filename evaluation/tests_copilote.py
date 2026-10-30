@@ -14,7 +14,7 @@ from pathlib import Path
 
 RACINE = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RACINE / "scripts"))
-from expliquer import repondre  # noqa: E402
+from expliquer import expliquer_alerte, repondre  # noqa: E402
 from pseudo import Pseudonymiseur  # noqa: E402
 
 CAS = RACINE / "evaluation" / "cas-tests.jsonl"
@@ -58,7 +58,8 @@ def main():
     cas = [json.loads(l) for l in CAS.read_text(encoding="utf-8").splitlines() if l.strip()]
     lignes = []
     for c in cas:
-        r = repondre(c["question"], pseudo)
+        # Un cas avec "donnees" cache l'attaque dans une alerte (comme si elle venait des capteurs).
+        r = expliquer_alerte(c["donnees"], pseudo) if "donnees" in c else repondre(c["question"], pseudo)
         lignes.append(noter(c, r))
         print(f"{c['id']:<9} {'OK ' if lignes[-1]['reussi'] else 'KO '} {lignes[-1]['score_auto_10']:>4}/10  {r['latence_s']} s")
     SORTIE_CSV.parent.mkdir(exist_ok=True)

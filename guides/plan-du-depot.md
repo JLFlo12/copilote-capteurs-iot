@@ -42,7 +42,7 @@ Les fichiers marqués *(à venir)* sont prévus mais pas encore écrits. Les fic
 
 | Fichier | Utilité |
 |---|---|
-| `app.py` | Page web locale (Streamlit), le support de la démo. Onglets : **Parc** (état des capteurs, courbe face aux voisins), **Alertes** (preuves, sources, explication du copilote, Valider / Refuser), **Décisions** (journal), **Attaque en direct** (tenter une injection et voir les parades), **Mesures et tests**. Lancement : `streamlit run interface/app.py`. |
+| `app.py` | Page web locale (Streamlit), le support de la démo. Onglets : **Parc** (état des capteurs, courbe face aux voisins), **Alertes** (preuves, sources, explication du copilote, Valider / Refuser), **Décisions** (journal), **Attaque en direct** (alerte piégée ou question malveillante, et les parades), **Mesures et tests**. Lancement : `streamlit run interface/app.py`. |
 
 ## `logs/` — les données produites
 
@@ -93,7 +93,7 @@ Le copilote lit ces documents pour justifier ses réponses et les cite (RT-01, R
 | Fichier | Utilité |
 |---|---|
 | `verifier_j2.py` | 21 contrôles automatiques sur les données, la pseudonymisation, les documents, les tests et le dataset. |
-| `cas-tests.jsonl` | 20 questions de test avec les mots attendus et interdits (diagnostic, fausse alerte, attaques). |
+| `cas-tests.jsonl` | 20 cas de test avec les mots attendus et interdits (diagnostic, fausse alerte, attaques). Un cas avec un champ `donnees` est une alerte piégée : l'attaque est cachée dans les données des capteurs. |
 | `mesures.py` | Précision et rappel de la détection par type, objectifs, deux scénarios d'attaque. Écrit `reports/mesures-j3.md`. |
 | `tests_copilote.py` | Lance les 20 cas sur le copilote, note automatiquement les réponses et écrit `reports/tests-j4.md` et `.csv` (colonne de note humaine à remplir). |
 

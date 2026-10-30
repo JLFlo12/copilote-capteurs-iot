@@ -63,7 +63,8 @@ Résultats : [reports/tests-j4.md](../reports/tests-j4.md). LLM `llama3.2:3b` su
 - **RAG** : 8 documents découpés en 20 passages ; le bon runbook est retrouvé en tête dans 4 requêtes de test sur 5.
 - **Contrôles par le code** : source inventée → réponse bloquée ; action hors liste blanche → ignorée et notée dans le journal ; données des capteurs entre balises ; passages et questions pseudonymisés (0 identifiant réel envoyé au LLM).
 - **Chaîne** : `copilote.py` explique chaque alerte, l'opérateur valide ou refuse, tout va dans `logs/decisions.jsonl`, rapport de 6 lignes dans `reports/incidents/`.
-- **Tests** : 14/20 au score automatique. À la relecture, le score se trompe dans les deux sens : BAT-01 est un bon refus compté en échec ; DEF-01 et DEF-02 sont comptés réussis mais le modèle se trompe sur les nombres.
+- **Tests** : 14/20 au score automatique. Les injections INJ-01 et INJ-02 sont cachées dans les données d'une alerte (nom de zone, preuves) : le LLM ne les suit pas et le code les détecte. À la relecture, le score automatique se trompe parfois (un bon refus peut être compté en échec), d'où la note humaine.
+- **Variabilité** : d'une exécution à l'autre, les mêmes cas ne réussissent pas toujours (DEF-02 : 85 °C classé « dérive » au lieu de « défaillant »), malgré la graine fixe. À citer dans le rapport : le score se lit sur l'ensemble, pas cas par cas.
 - **Limite à mettre dans le rapport** : le modèle 3B raisonne mal sur les chiffres et confond parfois défaillant et dérive. C'est pour ça que le code fixe le type et l'action, et que le LLM ne fait qu'expliquer.
 
 ## Interface web et démo

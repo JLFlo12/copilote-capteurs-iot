@@ -36,6 +36,7 @@ Une ligne par décision, la plus récente en bas.
 | 2026-10-30 | `rag.py` unique (indexer / chercher) au lieu de deux scripts | Moins de fichiers, même rôle | `rag_indexer.py` + `rag_chercher.py` | Groupe |
 | 2026-10-30 | Statistiques d'usage de Streamlit coupées, page servie sur localhost seulement | Règle n° 3 : rien ne sort du poste | Laisser les réglages par défaut | Groupe |
 | 2026-10-30 | `DRY_RUN=false` refusé au démarrage ; journal « exécutée » toujours à non | Aucun exécuteur n'existe : un journal qui dirait « exécutée » mentirait (règle n° 5) | Mode réel simulé | Groupe |
+| 2026-10-30 | Tests INJ-01 et INJ-02 : l'attaque est cachée dans une alerte (nom de zone, preuves), envoyée entre balises `<donnees>` | Le sujet demande une « injection de prompt cachée dans les données » ; avant, elle passait par la question de l'opérateur | Garder l'injection dans la question | Groupe |
 
 ## Questions pour le point jalon
 
