@@ -101,7 +101,7 @@ Le score vient du code (règles + Isolation Forest + statistique). Le LLM ne fai
 
 ## 7. Rôles
 
-Données : … · Modèles : … · Intégration : … · Sécurité & évaluation : …
+Données : … · Modèles : … · Intégration : Mathis · Sécurité & évaluation : …
 
 ## 8. Plan de J2
 

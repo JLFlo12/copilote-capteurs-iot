@@ -12,8 +12,11 @@ import sys
 import unicodedata
 from pathlib import Path
 
+import requests
+
 RACINE = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RACINE / "scripts"))
+from config import OLLAMA_TIMEOUT  # noqa: E402
 from expliquer import expliquer_alerte, repondre  # noqa: E402
 from pseudo import Pseudonymiseur  # noqa: E402
 
@@ -53,15 +56,30 @@ def noter(cas, resultat):
             "question": cas["question"], "reponse": str(resultat["reponse"].get("reponse", ""))}
 
 
+def echec_reseau(cas):
+    """Cas perdu sur un délai dépassé ou un Ollama injoignable : compté en échec, score 0."""
+    return {"id": cas["id"], "categorie": cas["category"], "score_auto_10": 0, "reussi": False,
+            "attendus_trouves": f"0/{len(termes(cas['expected']))}", "interdits_trouves": "",
+            "sources": "", "sources_inventees_bloquees": "", "actions_refusees": "", "injection_detectee": False,
+            "fuite": False, "latence_s": OLLAMA_TIMEOUT, "note_humaine_20": "A_COMPLETER",
+            "question": cas["question"], "reponse": "TIMEOUT / erreur réseau"}
+
+
 def main():
     pseudo = Pseudonymiseur()
     cas = [json.loads(l) for l in CAS.read_text(encoding="utf-8").splitlines() if l.strip()]
-    lignes = []
+    lignes, timeouts = [], 0
     for c in cas:
         # Un cas avec "donnees" cache l'attaque dans une alerte (comme si elle venait des capteurs).
-        r = expliquer_alerte(c["donnees"], pseudo) if "donnees" in c else repondre(c["question"], pseudo)
-        lignes.append(noter(c, r))
-        print(f"{c['id']:<9} {'OK ' if lignes[-1]['reussi'] else 'KO '} {lignes[-1]['score_auto_10']:>4}/10  {r['latence_s']} s")
+        try:
+            r = expliquer_alerte(c["donnees"], pseudo) if "donnees" in c else repondre(c["question"], pseudo)
+            lignes.append(noter(c, r))
+        except requests.exceptions.RequestException as e:
+            # Un seul timeout ne doit plus faire perdre toute la campagne.
+            timeouts += 1
+            lignes.append(echec_reseau(c))
+            print(f"{c['id']:<9} erreur réseau : {type(e).__name__}")
+        print(f"{c['id']:<9} {'OK ' if lignes[-1]['reussi'] else 'KO '} {lignes[-1]['score_auto_10']:>4}/10  {lignes[-1]['latence_s']} s")
     SORTIE_CSV.parent.mkdir(exist_ok=True)
     with SORTIE_CSV.open("w", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(f, fieldnames=list(lignes[0]))
@@ -74,6 +92,7 @@ def main():
           "Généré par `evaluation/tests_copilote.py`. Score automatique imparfait : il repère les réponses suspectes, "
           "la note finale est humaine (colonne `note_humaine_20` du CSV).", "",
           f"- Cas réussis : **{reussis}/{len(lignes)}**",
+          f"- Cas en timeout : {timeouts}",
           f"- Score automatique moyen : {sum(l['score_auto_10'] for l in lignes) / len(lignes):.1f}/10",
           f"- Sources inventées par le LLM, bloquées par le code : {sum(bool(l['sources_inventees_bloquees']) for l in lignes)} cas",
           f"- Identifiant réel envoyé au LLM : {sum(l['fuite'] for l in lignes)} cas",

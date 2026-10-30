@@ -82,7 +82,33 @@ python evaluation/tests_copilote.py  # 20 tests, results in reports/tests-j4.md
 streamlit run interface/app.py   # local web page: http://localhost:8501
 ```
 
-Demo commands will be added in milestone J4.
+## Demo
+
+The day before: regenerate the data and rerun `evaluation/tests_copilote.py` (commands above).
+
+Project in a VirtualBox VM (NAT) with Ollama on the host (GPU): set `OLLAMA_HOST=http://10.0.2.2:11434` in `.env`.
+Streamlit only listens on `localhost`; from the host, use an SSH tunnel and open http://localhost:8501.
+
+```bash
+streamlit run interface/app.py                           # in the VM
+ssh -N -L 8501:localhost:8501 -p 2222 <user>@127.0.0.1   # on the host (NAT forward 2222 → 22)
+```
+
+Before starting: wait for the detection to finish (about 15 s), then ask for the explanation of an alert you will not show (CAPT-018) to load the model.
+
+Running order (6 min):
+
+| Tab | What to show | Project requirement |
+|---|---|---|
+| Parc | Status by zone, CAPT-007 against its neighbours | Field data (simulated) |
+| Alertes | CAPT-012 (stuck value): explanation, source RT-02, **Valider** | Incident through to an action approved by a human |
+| Alertes | CAPT-007 (drift) and CAPT-031 (clone): **Refuser** one of them | The code decides, the human can refuse |
+| Alertes | Buffer replay GW-B ("probably normal") | False alarm |
+| Attaque en direct | "Injection cachée dans le nom de zone", then "Source inventée" | Injection defeated; the copilot says it does not know |
+| Décisions | Log: approved / refused, never executed (dry-run) | Traceability |
+| Mesures et tests | Detection, attacks, 20 tests | What it detects, misses and triggers wrongly |
+
+If Ollama does not answer, the page still shows the detection: restart Ollama and reload the page.
 
 ## Team
 

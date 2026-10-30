@@ -37,6 +37,7 @@ Une ligne par décision, la plus récente en bas.
 | 2026-10-30 | Statistiques d'usage de Streamlit coupées, page servie sur localhost seulement | Règle n° 3 : rien ne sort du poste | Laisser les réglages par défaut | Groupe |
 | 2026-10-30 | `DRY_RUN=false` refusé au démarrage ; journal « exécutée » toujours à non | Aucun exécuteur n'existe : un journal qui dirait « exécutée » mentirait (règle n° 5) | Mode réel simulé | Groupe |
 | 2026-10-30 | Tests INJ-01 et INJ-02 : l'attaque est cachée dans une alerte (nom de zone, preuves), envoyée entre balises `<donnees>` | Le sujet demande une « injection de prompt cachée dans les données » ; avant, elle passait par la question de l'opérateur | Garder l'injection dans la question | Groupe |
+| 2026-10-30 | Inférence sur l'hôte Windows (GPU NVIDIA) au lieu de la VM | 21 à 274 s par réponse en CPU sur 4 vCPU, contre 3,1 s sur GPU ; inférence toujours locale (règle n° 3) | `llama3.2:1b` dans la VM (plus rapide mais moins bon), plus de vCPU | Mathis |
 
 ## Questions pour le point jalon
 

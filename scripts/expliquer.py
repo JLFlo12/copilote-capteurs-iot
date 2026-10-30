@@ -11,7 +11,7 @@ import time
 
 import requests
 
-from config import OLLAMA_HOST, OLLAMA_MODEL
+from config import OLLAMA_HOST, OLLAMA_MODEL, OLLAMA_TIMEOUT
 from pseudo import MOTIFS, Pseudonymiseur
 from rag import DOCS, chercher
 
@@ -47,9 +47,10 @@ def construire_prompt(passages, consigne, donnees=None):
 
 def appeler_llm(prompt):
     debut = time.perf_counter()
-    r = requests.post(f"{OLLAMA_HOST}/api/generate", timeout=300, json={
+    # keep_alive : le modèle reste chargé entre deux alertes (sinon rechargé après 5 min d'inactivité).
+    r = requests.post(f"{OLLAMA_HOST}/api/generate", timeout=OLLAMA_TIMEOUT, json={
         "model": OLLAMA_MODEL, "system": SYSTEME, "prompt": prompt, "format": "json", "stream": False,
-        "options": {"temperature": 0.1, "seed": 42}})
+        "keep_alive": "30m", "options": {"temperature": 0.1, "seed": 42}})
     r.raise_for_status()
     texte = r.json()["response"]
     try:

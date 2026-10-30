@@ -82,7 +82,33 @@ python evaluation/tests_copilote.py  # 20 tests, résultats dans reports/tests-j
 streamlit run interface/app.py   # page web locale : http://localhost:8501
 ```
 
-Les commandes de la démo seront ajoutées au jalon J4.
+## Démo
+
+La veille : régénérer les données et relancer `evaluation/tests_copilote.py` (commandes ci-dessus).
+
+Projet dans une VM VirtualBox (NAT) avec Ollama sur l'hôte (GPU) : mettre `OLLAMA_HOST=http://10.0.2.2:11434` dans `.env`.
+Streamlit n'écoute que sur `localhost` ; depuis l'hôte, passer par un tunnel SSH puis ouvrir http://localhost:8501.
+
+```bash
+streamlit run interface/app.py                           # dans la VM
+ssh -N -L 8501:localhost:8501 -p 2222 <user>@127.0.0.1   # sur l'hôte (redirection NAT 2222 → 22)
+```
+
+Avant de commencer : attendre la fin de la détection (environ 15 s), puis demander l'explication d'une alerte qui ne sera pas montrée (CAPT-018) pour charger le modèle.
+
+Déroulé (6 min) :
+
+| Onglet | À montrer | Exigence du sujet |
+|---|---|---|
+| Parc | État par zone, CAPT-007 face à ses voisins | Données du terrain (simulées) |
+| Alertes | CAPT-012 (valeur figée) : explication, source RT-02, **Valider** | Incident jusqu'à une action validée par un humain |
+| Alertes | CAPT-007 (dérive) et CAPT-031 (clone) : **Refuser** l'une des deux | Le code décide, l'humain peut refuser |
+| Alertes | Rejeu de tampon GW-B (« probablement normal ») | Fausse alerte |
+| Attaque en direct | « Injection cachée dans le nom de zone », puis « Source inventée » | Injection déjouée ; le copilote dit qu'il ne sait pas |
+| Décisions | Journal : validée / refusée, jamais exécutée (dry-run) | Traçabilité |
+| Mesures et tests | Détection, attaques, 20 tests | Ce qu'il détecte, rate et déclenche à tort |
+
+Si Ollama ne répond pas, la page affiche quand même la détection : relancer Ollama puis recharger la page.
 
 ## Équipe
 
